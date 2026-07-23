@@ -1,0 +1,122 @@
+\documentclass[10pt]{article}
+\input{../../framework/interros-framework.tex}
+\usepackage{array}
+\setlength{\parindent}{0pt}
+\renewcommand{\arraystretch}{1.25}
+
+\newcommand{\choixliaisons}{%
+\begin{tabularx}{\linewidth}{|X|X|X|X|X|}\hline
+A) Pivot & B) Pivot glissant & C) Glissière & D) Sphère-plan & E) Sphérique\\\hline
+\end{tabularx}}
+
+\newcommand{\symboleSpherique}{%
+\begin{tikzpicture}[baseline=-1mm,scale=.65]
+\draw[SIblue,very thick] (-.8,0)--(-.25,0);
+\draw[SIblue,very thick] (0,0) circle (.27);
+\fill[SIred] (0,0) circle (.07);
+\end{tikzpicture}}
+
+\newcommand{\symbolePivot}{%
+\begin{tikzpicture}[baseline=-1mm,scale=.65]
+\draw[SIblue,very thick] (-1,0)--(-.35,0);
+\draw[SIblue,very thick] (0,0) circle (.38);
+\draw[SIred,very thick] (0,0) circle (.25);
+\draw[SIred,very thick] (.25,0)--(1,0);
+\node[SIblue] at (-.72,.26) {1};\node[SIred] at (.65,.3) {2};
+\end{tikzpicture}}
+
+\begin{document}
+\InterroHeader{Modélisation cinématique}{10}
+
+\question{À quelle liaison correspond ce schéma : \symboleSpherique}{0,5}
+\choixliaisons
+
+\question{À quelle liaison correspond ce schéma : \symbolePivot}{0,5}
+\choixliaisons
+
+\question{Quelle est la bonne caractéristique d'une liaison pivot ?}{0,5}
+\begin{tabularx}{\linewidth}{|X|X|X|X|X|}\hline
+A) de centre $A$ & B) de direction $\vec{x}$ & C) de direction $(A,\vec{x})$ & D) d'axe $(A,\vec{x})$ & E) de normale $(A,\vec{x})$\\\hline
+\end{tabularx}
+
+\question{Quelle liaison possède deux degrés de liberté en translation et trois degrés de liberté en rotation ?}{0,5}
+\choixliaisons
+
+\medskip
+Soit une base $(\vec{x}_1,\vec{y}_1,\vec{z}_1)$ en rotation par rapport à la base $(\vec{x}_0,\vec{y}_0,\vec{z}_0)$. L'angle $\theta$ caractérise la rotation autour de l'axe $\vec{z}_0=\vec{z}_1$ : $\theta=(\vec{x}_0,\vec{x}_1)$.
+
+\smallskip
+Soit une base $(\vec{x}_2,\vec{y}_2,\vec{z}_2)$ en rotation par rapport à la base $(\vec{x}_1,\vec{y}_1,\vec{z}_1)$. L'angle $\beta$ caractérise la rotation autour de l'axe $\vec{y}_1=\vec{y}_2$ : $\beta=(\vec{z}_1,\vec{z}_2)$.
+
+\question{Dessiner les deux figures de changement de base.}{2}
+\begin{reponse}[46mm]\end{reponse}
+
+\question{Pour chacun des trois mécanismes, déterminer la liaison équivalente des liaisons montées en parallèle.}{3}
+\begin{center}
+\begin{tabular}{|p{.31\linewidth}|p{.31\linewidth}|p{.31\linewidth}|}\hline
+\centering
+\begin{tikzpicture}[scale=.72,>=Latex]
+\draw[->] (0,0)--(2.4,0) node[right]{$\vec{x}$};
+\draw[->] (0,0)--(0,1.8) node[above]{$\vec{z}$};
+\draw[->] (0,0)--(1.5,1.15) node[right]{$\vec{y}$};
+\draw[SIred,very thick,rounded corners=10mm] (-.2,-.4)--(2.8,2.1)--(3.4,1.5)--(.5,-.9)--cycle;
+\foreach \p/\n in {(1.0,.55)/A,(2.15,1.35)/B}{\draw[SIblue,very thick] \p circle(.18);\node[above left] at \p {$\n$};}
+\end{tikzpicture}
+&\centering
+\begin{tikzpicture}[scale=.72,>=Latex]
+\draw[SIblue,very thick] (-1.4,-.5)--(1.2,-.5)--(1.2,.8)--(.2,.8);
+\draw[green!60!black,very thick] (-.9,.2)--(.4,.2)--(.4,1.2)--(-.9,1.2)--cycle;
+\draw[green!60!black,very thick] (-.9,.2) circle(.18);\node[above left] at (-.9,.2){$B$};
+\draw[green!60!black,very thick] (.4,.2) circle(.18);\node[below right] at (.4,.2){$A$};
+\node[green!60!black] at (-.2,.75){1};\node[SIblue] at (1.35,.55){0};
+\draw[->] (-1.6,-.9)--(-.7,-.9)node[right]{$\vec{x}$};
+\draw[->] (-1.6,-.9)--(-1.6,.05)node[above]{$\vec{z}$};
+\end{tikzpicture}
+&\centering
+\begin{tikzpicture}[scale=.72,>=Latex]
+\draw[->] (-.2,0)--(3.4,0) node[right]{$\vec{y}$};
+\draw[->] (1.5,-.7)--(1.5,1.5) node[above]{$\vec{z}$};
+\draw[SIred,very thick] (.3,0)--(2.8,0);
+\draw[SIred,very thick] (.3,0) circle(.25);\node[above] at (.3,.3){$A$};
+\draw[SIred,very thick] (2.8,0) circle(.25);\node[above] at (2.8,.3){$B$};
+\draw[SIblue,very thick] (-.1,-.4)--(.7,-.4);\foreach \x in {0,.2,...,.6}{\draw[SIblue] (\x,-.4)--++(-.15,-.2);}
+\draw[SIblue,very thick] (2.4,-.4)--(3.2,-.4);\foreach \x in {2.5,2.7,...,3.1}{\draw[SIblue] (\x,-.4)--++(-.15,-.2);}
+\node at (1.5,-.25){$O$};
+\end{tikzpicture}
+\tabularnewline[2mm]\hline
+\rule{0pt}{31mm} & & \\\hline
+\end{tabular}
+\end{center}
+
+\newpage
+\InterroHeader{Modélisation cinématique}{10}
+
+Soit le robot manipulateur suivant :
+\begin{center}
+\begin{tikzpicture}[scale=.9,>=Latex]
+\draw[very thick] (-3,-1.6)--(-3,1.4);\foreach \y in {-1.5,-1.25,...,-.8}{\draw (-3.35,\y)--(-3,\y+.2);}
+\draw[SIblue,very thick] (-3,.3) circle(.25);\node[left] at (-3,.3){$A$};
+\draw[SIblue,very thick] (-2.75,.3)--(-.7,-.2);
+\draw[SIblue,very thick] (-.7,-.2) circle(.24);\node[below] at (-.7,-.2){$B$};
+\draw[SIred,very thick] (-.45,-.2)--(1.45,-.55);
+\draw[SIred,very thick] (1.45,-.55) rectangle (1.85,.15);
+\draw[brown!70!black,very thick] (1.65,-1.5)--(1.65,1.35);
+\draw[->] (-3,.3)--(-1.2,1.4)node[above]{$\vec{y}_2$};
+\draw[->] (-3,.3)--(.3,1.55)node[above]{$\vec{y}_1$};
+\draw[->] (-3,.3)--(-1.5,-1.3)node[below]{$\vec{x}_1$};
+\draw[->] (-.7,-.2)--(.1,.9)node[above]{$\vec{z}_3$};
+\draw[->] (1.65,-.2)--(2.8,-.2)node[right]{$\vec{x}_3$};
+\draw[->] (1.65,-.2)--(2.75,.65)node[right]{$\vec{x}_4$};
+\draw[->] (-3,.3)--(-3,2)node[above]{$\vec{z}_1=\vec{z}_2$};
+\node[font=\bfseries] at (-2.7,-.65){1};\node[font=\bfseries] at (-1.1,.35){2};\node[font=\bfseries] at (.8,.1){3};\node[font=\bfseries] at (1.25,.8){4};
+\node at (-1.3,-.9){$\theta_{21}$};\node at (1.2,-.95){$\theta_{32}$};\node at (2.15,.45){$\lambda_{43}$};
+\end{tikzpicture}
+\end{center}
+
+\question{Dessiner les figures de changement de base associées aux paramètres $\theta_{21}$ et $\theta_{32}$.}{1}
+\begin{reponse}[48mm]\end{reponse}
+
+\question{Donner le graphe de liaisons du robot manipulateur.}{2}
+\begin{reponse}[93mm]\end{reponse}
+
+\end{document}
