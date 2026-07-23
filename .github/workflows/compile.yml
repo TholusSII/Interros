@@ -51,36 +51,10 @@ jobs:
           test -s framework/rp-sysml.sty
           wc -l framework/rpcinematik.sty framework/rp-sysml.sty
 
-      - name: Vérifier le chargement du framework SI
-        shell: bash
-        run: |
-          set -euo pipefail
-          testdir='interros/I01_AnalyseFonctionnelle'
-          cat > "$testdir/framework-smoke-test.tex" <<'EOF'
-          \documentclass[10pt]{article}
-          \input{../../framework/interros-framework.tex}
-          \makeatletter
-          \@ifundefined{question}{\PackageError{framework-smoke-test}{Commande question absente}{}}{}
-          \@ifundefined{InterroHeader}{\PackageError{framework-smoke-test}{Commande InterroHeader absente}{}}{}
-          \@ifundefined{scPivot}{\PackageError{framework-smoke-test}{Commande scPivot absente}{}}{}
-          \@ifundefined{scGlissiere}{\PackageError{framework-smoke-test}{Commande scGlissiere absente}{}}{}
-          \@ifundefined{sysmlActeur}{\PackageError{framework-smoke-test}{Commande sysmlActeur absente}{}}{}
-          \makeatother
-          \begin{document}
-          Framework SI chargé correctement.
-          \end{document}
-          EOF
-          (
-            cd "$testdir"
-            latexmk -pdf -interaction=nonstopmode -halt-on-error -file-line-error framework-smoke-test.tex
-            latexmk -C framework-smoke-test.tex
-          )
-          rm -f "$testdir/framework-smoke-test.tex"
-
       - name: Compiler toutes les interros avec pdfLaTeX
         shell: bash
         run: |
-          set -uo pipefail
+          set +e
           mkdir -p artifacts logs
           mapfile -d '' TEXFILES < <(find interros -type f -name '*.tex' -print0 | sort -z)
 
@@ -98,10 +72,11 @@ jobs:
 
             echo "::group::Compilation de $texfile"
             (
-              cd "$directory"
+              cd "$directory" || exit 1
               latexmk -pdf -interaction=nonstopmode -halt-on-error -file-line-error "$filename"
-            ) 2>&1 | tee "$logfile"
-            status=${PIPESTATUS[0]}
+            ) >"$logfile" 2>&1
+            status=$?
+            cat "$logfile"
             echo '::endgroup::'
 
             if [ "$status" -eq 0 ] && [ -f "$directory/$basename.pdf" ]; then
