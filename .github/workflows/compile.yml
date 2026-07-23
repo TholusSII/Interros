@@ -20,10 +20,26 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    timeout-minutes: 30
 
     steps:
       - name: Récupérer le dépôt
         uses: actions/checkout@v4
+
+      - name: Installer TeX Live
+        shell: bash
+        run: |
+          set -euo pipefail
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends \
+            latexmk \
+            texlive-latex-base \
+            texlive-latex-recommended \
+            texlive-latex-extra \
+            texlive-pictures \
+            texlive-science \
+            texlive-fonts-recommended \
+            texlive-lang-french
 
       - name: Restaurer les packages du framework des khôlles
         shell: bash
@@ -33,14 +49,14 @@ jobs:
           base64 --decode framework/vendor/rp-sysml.sty.gz.b64 | gzip --decompress > framework/rp-sysml.sty
           test -s framework/rpcinematik.sty
           test -s framework/rp-sysml.sty
-          echo "Packages restaurés :"
           wc -l framework/rpcinematik.sty framework/rp-sysml.sty
 
       - name: Vérifier le chargement du framework SI
         shell: bash
         run: |
           set -euo pipefail
-          cat > interros/I01_AnalyseFonctionnelle/framework-smoke-test.tex <<'EOF'
+          testdir='interros/I01_AnalyseFonctionnelle'
+          cat > "$testdir/framework-smoke-test.tex" <<'EOF'
           \documentclass[10pt]{article}
           \input{../../framework/interros-framework.tex}
           \makeatletter
@@ -54,14 +70,12 @@ jobs:
           Framework SI chargé correctement.
           \end{document}
           EOF
-
-          docker run --rm \
-            -v "$PWD:/work" \
-            -w "/work/interros/I01_AnalyseFonctionnelle" \
-            ghcr.io/xu-cheng/texlive-full:latest \
+          (
+            cd "$testdir"
             latexmk -pdf -interaction=nonstopmode -halt-on-error -file-line-error framework-smoke-test.tex
-
-          rm -f interros/I01_AnalyseFonctionnelle/framework-smoke-test.*
+            latexmk -C framework-smoke-test.tex
+          )
+          rm -f "$testdir/framework-smoke-test.tex"
 
       - name: Compiler toutes les interros avec pdfLaTeX
         shell: bash
@@ -71,7 +85,7 @@ jobs:
           mapfile -d '' TEXFILES < <(find interros -type f -name '*.tex' -print0 | sort -z)
 
           if [ "${#TEXFILES[@]}" -eq 0 ]; then
-            echo "Aucun fichier .tex trouvé dans interros/."
+            echo 'Aucun fichier .tex trouvé dans interros/.'
             exit 1
           fi
 
@@ -83,25 +97,23 @@ jobs:
             logfile="$PWD/logs/${basename}.log"
 
             echo "::group::Compilation de $texfile"
-            docker run --rm \
-              -v "$PWD:/work" \
-              -w "/work/$directory" \
-              ghcr.io/xu-cheng/texlive-full:latest \
-              latexmk -pdf -interaction=nonstopmode -halt-on-error -file-line-error "$filename" \
-              2>&1 | tee "$logfile"
+            (
+              cd "$directory"
+              latexmk -pdf -interaction=nonstopmode -halt-on-error -file-line-error "$filename"
+            ) 2>&1 | tee "$logfile"
             status=${PIPESTATUS[0]}
-            echo "::endgroup::"
+            echo '::endgroup::'
 
             if [ "$status" -eq 0 ] && [ -f "$directory/$basename.pdf" ]; then
               cp "$directory/$basename.pdf" "artifacts/$basename.pdf"
               echo "PDF créé : $basename.pdf"
             else
-              echo "::error file=$texfile::Échec de compilation de $texfile. Consulter logs/${basename}.log."
+              echo "::error file=$texfile::Échec de compilation. Consulter logs/${basename}.log."
               failures=$((failures + 1))
             fi
           done
 
-          echo "PDF disponibles :"
+          echo 'PDF disponibles :'
           find artifacts -maxdepth 1 -type f -name '*.pdf' -print || true
 
           if [ "$failures" -ne 0 ]; then
