@@ -2,40 +2,76 @@ name: Compile LaTeX
 
 on:
   push:
+    paths:
+      - 'interros/**'
+      - 'framework/**'
+      - '.github/workflows/compile.yml'
+      - 'latexmkrc'
+      - 'Makefile'
   pull_request:
+    paths:
+      - 'interros/**'
+      - 'framework/**'
+      - '.github/workflows/compile.yml'
+      - 'latexmkrc'
+      - 'Makefile'
   workflow_dispatch:
 
 jobs:
   build:
     runs-on: ubuntu-latest
-    strategy:
-      fail-fast: false
-      matrix:
-        interro:
-          - directory: interros/I01_AnalyseFonctionnelle
-            file: I01_AnalyseFonctionnelle.tex
-            artifact: I01_AnalyseFonctionnelle
-          - directory: interros/I02_Liaisons
-            file: I02_Liaisons.tex
-            artifact: I02_Liaisons
-          - directory: interros/I03_Liaisons
-            file: I03_Liaisons.tex
-            artifact: I03_Liaisons
 
     steps:
-      - uses: actions/checkout@v4
+      - name: Récupérer le dépôt
+        uses: actions/checkout@v4
 
-      - name: Compile ${{ matrix.interro.artifact }}
-        uses: xu-cheng/latex-action@v3
-        with:
-          root_file: ${{ matrix.interro.file }}
-          working_directory: ${{ matrix.interro.directory }}
-          latexmk_use_xelatex: false
-          args: -pdf -interaction=nonstopmode -halt-on-error
+      - name: Installer LaTeX
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends \
+            latexmk \
+            texlive-latex-base \
+            texlive-latex-recommended \
+            texlive-latex-extra \
+            texlive-fonts-recommended \
+            texlive-lang-french \
+            texlive-pictures
 
-      - name: Upload PDF
+      - name: Compiler toutes les interros
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p artifacts
+
+          mapfile -d '' TEXFILES < <(find interros -type f -name '*.tex' -print0 | sort -z)
+
+          if [ "${#TEXFILES[@]}" -eq 0 ]; then
+            echo "Aucun fichier .tex trouvé dans interros/."
+            exit 1
+          fi
+
+          for texfile in "${TEXFILES[@]}"; do
+            directory="$(dirname "$texfile")"
+            filename="$(basename "$texfile")"
+            basename="${filename%.tex}"
+
+            echo "::group::Compilation de $texfile"
+            (
+              cd "$directory"
+              latexmk -pdf -interaction=nonstopmode -halt-on-error -file-line-error "$filename"
+            )
+            echo "::endgroup::"
+
+            cp "$directory/$basename.pdf" "artifacts/$basename.pdf"
+          done
+
+          echo "PDF générés :"
+          ls -lh artifacts/
+
+      - name: Déposer les PDF
         uses: actions/upload-artifact@v4
         with:
-          name: ${{ matrix.interro.artifact }}
-          path: ${{ matrix.interro.directory }}/${{ matrix.interro.artifact }}.pdf
+          name: interros-pdf
+          path: artifacts/*.pdf
           if-no-files-found: error
+          retention-days: 90
