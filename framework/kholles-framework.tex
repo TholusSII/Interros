@@ -1,10 +1,13 @@
-% Socle commun issu du framework des khôlles SI
+% Socle commun dérivé du framework des khôlles SI
+% Version autonome et compatible pdfLaTeX pour le dépôt Interros.
+\RequirePackage[T1]{fontenc}
+\RequirePackage[utf8]{inputenc}
+\RequirePackage[french]{babel}
+\RequirePackage{lmodern}
 \RequirePackage[margin=1.8cm]{geometry}
 \RequirePackage{xcolor}
 \RequirePackage{graphicx}
 \RequirePackage{amsmath,amssymb}
-\RequirePackage{fontspec}
-\RequirePackage{unicode-math}
 \RequirePackage{tikz}
 \RequirePackage{tabularx}
 \RequirePackage{array}
@@ -26,9 +29,11 @@
 \rhead{Interros ATS}
 \cfoot{\thepage}
 \titleformat{\section}{\Large\bfseries\color{SIblue}}{}{0pt}{}
+\titleformat{\subsection}{\large\bfseries\color{SIblue}}{}{0pt}{}
 \setlist[itemize]{leftmargin=*,itemsep=2pt,topsep=2pt}
 \setlist[enumerate]{leftmargin=*,itemsep=4pt,topsep=4pt}
 \newtcolorbox{donnees}[1][]{enhanced,breakable,colback=white,colframe=SIblue,title=Données,fonttitle=\bfseries,#1}
 \newtcolorbox{attention}[1][]{enhanced,breakable,colback=orange!8,colframe=orange!80!black,title=Attention,fonttitle=\bfseries,#1}
+\newtcolorbox{methode}[1][]{enhanced,breakable,colback=green!5,colframe=green!45!black,title=Méthode,fonttitle=\bfseries,#1}
 \newcommand{\torseur}[2]{\left\{\mathcal V_{#1}\right\}_{#2}}
 \input{../../framework/si-bibliotheques.tex}
