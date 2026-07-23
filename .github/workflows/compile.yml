@@ -25,12 +25,13 @@ jobs:
       - name: Récupérer le dépôt
         uses: actions/checkout@v4
 
-      - name: Compiler toutes les interros avec LuaLaTeX
+      - name: Compiler toutes les interros avec pdfLaTeX
         shell: bash
         run: |
           set -uo pipefail
           mkdir -p artifacts logs
           mapfile -d '' TEXFILES < <(find interros -type f -name '*.tex' -print0 | sort -z)
+
           if [ "${#TEXFILES[@]}" -eq 0 ]; then
             echo "Aucun fichier .tex trouvé dans interros/."
             exit 1
@@ -48,7 +49,7 @@ jobs:
               -v "$PWD:/work" \
               -w "/work/$directory" \
               ghcr.io/xu-cheng/texlive-full:latest \
-              latexmk -lualatex -interaction=nonstopmode -halt-on-error -file-line-error "$filename" \
+              latexmk -pdf -interaction=nonstopmode -halt-on-error -file-line-error "$filename" \
               2>&1 | tee "$logfile"
             status=${PIPESTATUS[0]}
             echo "::endgroup::"
@@ -64,6 +65,7 @@ jobs:
 
           echo "PDF disponibles :"
           find artifacts -maxdepth 1 -type f -name '*.pdf' -print || true
+
           if [ "$failures" -ne 0 ]; then
             echo "$failures compilation(s) ont échoué."
             exit 1
