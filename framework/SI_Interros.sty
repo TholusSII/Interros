@@ -40,6 +40,25 @@
 \newcounter{question}
 \newcommand{\question}[2]{\refstepcounter{question}\par\medskip\noindent\textbf{Question \thequestion :}\quad #1\hfill\textbf{(#2 points)}\par\smallskip}
 \newtcolorbox{reponse}[1][35mm]{colback=white,colframe=black,boxrule=.5pt,arc=0mm,height=#1}
+\newcommand{\bddrobotOz}{%
+\begin{tikzpicture}[font=\scriptsize,>=Latex,
+block/.style={draw,rounded corners=1mm,minimum width=27mm,minimum height=10mm,align=center,fill=SIlightblue},
+part/.style={draw,minimum width=24mm,minimum height=8mm,align=center,fill=white}]
+\node[block] (robot) {Robot maraîcher\\Oz 440};
+\node[part,below left=12mm and 18mm of robot] (bat) {Batterie};
+\node[part,below=12mm of robot] (ctrl) {Carte de commande};
+\node[part,below right=12mm and 18mm of robot] (mot) {4 moteurs DC};
+\node[part,below=13mm of bat] (cap) {Capteurs};
+\node[part,below=13mm of ctrl] (trans) {Transmissions};
+\node[part,below=13mm of mot] (roues) {4 roues motrices};
+\draw[-{Triangle[open]},thick] (bat)--(robot);
+\draw[-{Triangle[open]},thick] (ctrl)--(robot);
+\draw[-{Triangle[open]},thick] (mot)--(robot);
+\draw[-{Triangle[open]},thick] (cap)--(robot);
+\draw[-{Triangle[open]},thick] (trans)--(robot);
+\draw[-{Triangle[open]},thick] (roues)--(robot);
+\node[align=left,below=4mm of cap] {\textbf{Exemples :}\\capteur de position,\\capteur de vitesse,\\capteur d'effort};
+\end{tikzpicture}}
 \newcommand{\chaineenergie}{%
 \begin{tikzpicture}[font=\small,>=Latex,node distance=4mm and 4mm,bloc/.style={draw,minimum width=26mm,minimum height=10mm,align=center,fill=white},agir/.style={bloc,fill=SIyellow}]
 \node[bloc] (alim) {\dots};
