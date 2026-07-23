@@ -16,10 +16,13 @@
 \noindent\begin{minipage}[c]{.78\linewidth}\begin{tcolorbox}[height=12mm,colback=white,colframe=black,boxrule=1pt,arc=1.5mm,left=2mm,top=2mm]\textbf{Nom :}\end{tcolorbox}\end{minipage}\hfill
 \begin{minipage}[c]{.13\linewidth}\begin{tcolorbox}[height=12mm,colback=white,colframe=black,boxrule=1pt,arc=2mm,halign=center,valign=center]\textbf{#2}\end{tcolorbox}\end{minipage}
 \vspace{2mm}}
-\newcounter{interroquestion}
-\newcommand{\question}[2]{\refstepcounter{interroquestion}\par\medskip\noindent\textbf{Question \theinterroquestion :}\quad #1\hfill\textbf{(#2 points)}\par\smallskip}
+
+% Le framework des khôlles définit déjà l'environnement question.
+% Pour les interros, on réutilise son compteur et on remplace uniquement
+% la commande d'ouverture par une commande compacte à deux arguments.
+\renewcommand{\question}[2]{\refstepcounter{question}\par\medskip\noindent\textbf{Question \thequestion :}\quad #1\hfill\textbf{(#2 points)}\par\smallskip}
+\renewcommand{\resetquestions}{\setcounter{question}{0}}
 \newtcolorbox{reponse}[1][35mm]{colback=white,colframe=black,boxrule=.5pt,arc=0mm,height=#1}
-\newcommand{\resetquestions}{\setcounter{interroquestion}{0}}
 
 \newcommand{\bddrobotOz}{%
 \begin{tikzpicture}[font=\scriptsize,>=Latex,bloc/.style={draw,rounded corners=1mm,minimum width=27mm,minimum height=8mm,align=center,fill=SIlightblue}]
@@ -37,5 +40,6 @@
 \newcommand{\chaineenergie}{\begin{tikzpicture}[font=\small,>=Latex,node distance=4mm,bloc/.style={draw,minimum width=25mm,minimum height=10mm,align=center}]
 \node[bloc](a){\dots};\node[bloc,right=of a](b){MODULER};\node[bloc,right=of b](c){\dots};\node[bloc,right=of c](d){\dots};\node[bloc,fill=yellow!30,right=of d](e){AGIR};
 \draw[->,thick](a)--(b);\draw[->,thick](b)--(c);\draw[->,thick](c)--(d);\draw[->,thick](d)--(e);\end{tikzpicture}}
+
 \newcommand{\chaineinformation}{\begin{tikzpicture}[font=\small,>=Latex,node distance=5mm,bloc/.style={draw,minimum width=25mm,minimum height=11mm,fill=yellow!30,align=center}]
 \node[bloc](a){\dots};\node[bloc,right=of a](b){\dots};\node[bloc,right=of b](c){\dots};\draw[->,very thick,SIblue](a)--(b);\draw[->,very thick,SIblue](b)--(c);\end{tikzpicture}}
