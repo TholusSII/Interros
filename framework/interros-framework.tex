@@ -20,6 +20,20 @@
 \newcommand{\question}[2]{\refstepcounter{interroquestion}\par\medskip\noindent\textbf{Question \theinterroquestion :}\quad #1\hfill\textbf{(#2 points)}\par\smallskip}
 \newtcolorbox{reponse}[1][35mm]{colback=white,colframe=black,boxrule=.5pt,arc=0mm,height=#1}
 \newcommand{\resetquestions}{\setcounter{interroquestion}{0}}
+
+\newcommand{\bddrobotOz}{%
+\begin{tikzpicture}[font=\scriptsize,>=Latex,bloc/.style={draw,rounded corners=1mm,minimum width=27mm,minimum height=8mm,align=center,fill=SIlightblue}]
+\node[bloc,fill=white] (robot) at (0,0) {\textbf{Robot maraîcher Oz 440}};
+\node[bloc] (batt) at (-5,-1.5) {Batterie};
+\node[bloc] (carte) at (-2.5,-1.5) {Carte de commande};
+\node[bloc] (moteur) at (0,-1.5) {Moteurs DC};
+\node[bloc] (reduc) at (2.5,-1.5) {Réducteurs};
+\node[bloc] (roues) at (5,-1.5) {Roues motrices};
+\node[bloc] (capt) at (-2.5,-3) {Capteurs};
+\node[bloc] (outil) at (2.5,-3) {Outil de binage};
+\foreach \n in {batt,carte,moteur,reduc,roues,capt,outil}{\draw[-{Diamond[open]},thick] (robot) -- (\n);}
+\end{tikzpicture}}
+
 \newcommand{\chaineenergie}{\begin{tikzpicture}[font=\small,>=Latex,node distance=4mm,bloc/.style={draw,minimum width=25mm,minimum height=10mm,align=center}]
 \node[bloc](a){\dots};\node[bloc,right=of a](b){MODULER};\node[bloc,right=of b](c){\dots};\node[bloc,right=of c](d){\dots};\node[bloc,fill=yellow!30,right=of d](e){AGIR};
 \draw[->,thick](a)--(b);\draw[->,thick](b)--(c);\draw[->,thick](c)--(d);\draw[->,thick](d)--(e);\end{tikzpicture}}
