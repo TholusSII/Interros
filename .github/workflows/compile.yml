@@ -57,8 +57,10 @@ jobs:
             texlive-pictures \
             texlive-science \
             texlive-fonts-recommended \
+            texlive-fonts-extra \
             texlive-lang-french
           kpsewhich lmodern.sty
+          kpsewhich esvect.sty
 
       - name: Restaurer les packages du framework
         shell: bash
