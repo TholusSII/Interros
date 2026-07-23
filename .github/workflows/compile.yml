@@ -25,23 +25,11 @@ jobs:
       - name: Récupérer le dépôt
         uses: actions/checkout@v4
 
-      - name: Installer LaTeX
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y --no-install-recommends \
-            latexmk \
-            texlive-latex-base \
-            texlive-latex-recommended \
-            texlive-latex-extra \
-            texlive-fonts-recommended \
-            texlive-lang-french \
-            texlive-pictures
-
       - name: Compiler toutes les interros
         shell: bash
         run: |
-          set -euo pipefail
-          mkdir -p artifacts
+          set -uo pipefail
+          mkdir -p artifacts logs
 
           mapfile -d '' TEXFILES < <(find interros -type f -name '*.tex' -print0 | sort -z)
 
@@ -50,28 +38,50 @@ jobs:
             exit 1
           fi
 
+          failures=0
+
           for texfile in "${TEXFILES[@]}"; do
             directory="$(dirname "$texfile")"
             filename="$(basename "$texfile")"
             basename="${filename%.tex}"
+            logfile="logs/${basename}.log"
 
             echo "::group::Compilation de $texfile"
-            (
-              cd "$directory"
-              latexmk -pdf -interaction=nonstopmode -halt-on-error -file-line-error "$filename"
-            )
+
+            docker run --rm \
+              -v "$PWD:/work" \
+              -w "/work/$directory" \
+              ghcr.io/xu-cheng/texlive-full:latest \
+              latexmk -pdf -interaction=nonstopmode -halt-on-error -file-line-error "$filename" \
+              2>&1 | tee "$logfile"
+
+            status=${PIPESTATUS[0]}
             echo "::endgroup::"
 
-            cp "$directory/$basename.pdf" "artifacts/$basename.pdf"
+            if [ "$status" -eq 0 ] && [ -f "$directory/$basename.pdf" ]; then
+              cp "$directory/$basename.pdf" "artifacts/$basename.pdf"
+              echo "PDF créé : $basename.pdf"
+            else
+              echo "::error file=$texfile::Échec de compilation de $texfile. Consulter $logfile."
+              failures=$((failures + 1))
+            fi
           done
 
-          echo "PDF générés :"
-          ls -lh artifacts/
+          echo "PDF disponibles :"
+          find artifacts -maxdepth 1 -type f -name '*.pdf' -print || true
 
-      - name: Déposer les PDF
+          if [ "$failures" -ne 0 ]; then
+            echo "$failures compilation(s) ont échoué."
+            exit 1
+          fi
+
+      - name: Déposer les PDF et journaux
+        if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: interros-pdf
-          path: artifacts/*.pdf
-          if-no-files-found: error
+          name: interros-pdf-et-logs
+          path: |
+            artifacts/*.pdf
+            logs/*.log
+          if-no-files-found: warn
           retention-days: 90
