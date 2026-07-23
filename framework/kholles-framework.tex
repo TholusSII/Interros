@@ -17,6 +17,20 @@
 \RequirePackage{hyperref}
 \RequirePackage{titlesec}
 \usetikzlibrary{arrows.meta,positioning,calc,fit,chains,decorations.pathmorphing,decorations.markings,shapes,shapes.multipart,patterns,graphs,quotes}
+
+% Packages techniques repris à l'identique du framework des khôlles.
+% Ils sont restaurés depuis framework/vendor/ avant la compilation GitHub.
+\IfFileExists{../../framework/rpcinematik.sty}{%
+  \RequirePackage{../../framework/rpcinematik}%
+}{%
+  \PackageWarningNoLine{interros-framework}{rpcinematik.sty absent; exécuter la préparation du framework}%
+}
+\IfFileExists{../../framework/rp-sysml.sty}{%
+  \RequirePackage{../../framework/rp-sysml}%
+}{%
+  \PackageWarningNoLine{interros-framework}{rp-sysml.sty absent; exécuter la préparation du framework}%
+}
+
 \definecolor{SIblue}{RGB}{31,78,121}
 \definecolor{SIlightblue}{RGB}{229,240,250}
 \definecolor{SIred}{RGB}{190,0,0}
