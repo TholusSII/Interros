@@ -18,30 +18,32 @@ on:
   workflow_dispatch:
 
 jobs:
-  build:
+  compile:
+    name: ${{ matrix.name }}
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    timeout-minutes: 20
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - name: I01 Analyse fonctionnelle
+            directory: interros/I01_AnalyseFonctionnelle
+            file: I01_AnalyseFonctionnelle.tex
+          - name: I02 Liaisons
+            directory: interros/I02_Liaisons
+            file: I02_Liaisons.tex
+          - name: I03 Modélisation cinématique
+            directory: interros/I03_ModelisationCinematique
+            file: I03_ModelisationCinematique.tex
+          - name: I04 Liaisons équivalentes
+            directory: interros/I04_LiaisonsEquivalentes
+            file: I04_LiaisonsEquivalentes.tex
 
     steps:
       - name: Récupérer le dépôt
         uses: actions/checkout@v4
 
-      - name: Installer TeX Live
-        shell: bash
-        run: |
-          set -euo pipefail
-          sudo apt-get update
-          sudo apt-get install -y --no-install-recommends \
-            latexmk \
-            texlive-latex-base \
-            texlive-latex-recommended \
-            texlive-latex-extra \
-            texlive-pictures \
-            texlive-science \
-            texlive-fonts-recommended \
-            texlive-lang-french
-
-      - name: Restaurer les packages du framework des khôlles
+      - name: Restaurer les packages du framework
         shell: bash
         run: |
           set -euo pipefail
@@ -49,60 +51,22 @@ jobs:
           base64 --decode framework/vendor/rp-sysml.sty.gz.b64 | gzip --decompress > framework/rp-sysml.sty
           test -s framework/rpcinematik.sty
           test -s framework/rp-sysml.sty
-          wc -l framework/rpcinematik.sty framework/rp-sysml.sty
 
-      - name: Compiler toutes les interros avec pdfLaTeX
-        shell: bash
-        run: |
-          set +e
-          mkdir -p artifacts logs
-          mapfile -d '' TEXFILES < <(find interros -type f -name '*.tex' -print0 | sort -z)
+      - name: Compiler ${{ matrix.name }}
+        uses: xu-cheng/latex-action@v4
+        with:
+          root_file: ${{ matrix.file }}
+          working_directory: ${{ matrix.directory }}
+          compiler: latexmk
+          args: -pdf -interaction=nonstopmode -halt-on-error -file-line-error
 
-          if [ "${#TEXFILES[@]}" -eq 0 ]; then
-            echo 'Aucun fichier .tex trouvé dans interros/.'
-            exit 1
-          fi
-
-          failures=0
-          for texfile in "${TEXFILES[@]}"; do
-            directory="$(dirname "$texfile")"
-            filename="$(basename "$texfile")"
-            basename="${filename%.tex}"
-            logfile="$PWD/logs/${basename}.log"
-
-            echo "::group::Compilation de $texfile"
-            (
-              cd "$directory" || exit 1
-              latexmk -pdf -interaction=nonstopmode -halt-on-error -file-line-error "$filename"
-            ) >"$logfile" 2>&1
-            status=$?
-            cat "$logfile"
-            echo '::endgroup::'
-
-            if [ "$status" -eq 0 ] && [ -f "$directory/$basename.pdf" ]; then
-              cp "$directory/$basename.pdf" "artifacts/$basename.pdf"
-              echo "PDF créé : $basename.pdf"
-            else
-              echo "::error file=$texfile::Échec de compilation. Consulter logs/${basename}.log."
-              failures=$((failures + 1))
-            fi
-          done
-
-          echo 'PDF disponibles :'
-          find artifacts -maxdepth 1 -type f -name '*.pdf' -print || true
-
-          if [ "$failures" -ne 0 ]; then
-            echo "$failures compilation(s) ont échoué."
-            exit 1
-          fi
-
-      - name: Déposer les PDF et journaux
+      - name: Déposer le PDF et le journal
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: interros-pdf-et-logs
+          name: ${{ matrix.file }}-resultat
           path: |
-            artifacts/*.pdf
-            logs/*.log
+            ${{ matrix.directory }}/*.pdf
+            ${{ matrix.directory }}/*.log
           if-no-files-found: warn
           retention-days: 90
