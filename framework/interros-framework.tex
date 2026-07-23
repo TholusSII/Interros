@@ -20,3 +20,8 @@
 \newcommand{\question}[2]{\refstepcounter{interroquestion}\par\medskip\noindent\textbf{Question \theinterroquestion :}\quad #1\hfill\textbf{(#2 points)}\par\smallskip}
 \newtcolorbox{reponse}[1][35mm]{colback=white,colframe=black,boxrule=.5pt,arc=0mm,height=#1}
 \newcommand{\resetquestions}{\setcounter{interroquestion}{0}}
+\newcommand{\chaineenergie}{\begin{tikzpicture}[font=\small,>=Latex,node distance=4mm,bloc/.style={draw,minimum width=25mm,minimum height=10mm,align=center}]
+\node[bloc](a){\dots};\node[bloc,right=of a](b){MODULER};\node[bloc,right=of b](c){\dots};\node[bloc,right=of c](d){\dots};\node[bloc,fill=yellow!30,right=of d](e){AGIR};
+\draw[->,thick](a)--(b);\draw[->,thick](b)--(c);\draw[->,thick](c)--(d);\draw[->,thick](d)--(e);\end{tikzpicture}}
+\newcommand{\chaineinformation}{\begin{tikzpicture}[font=\small,>=Latex,node distance=5mm,bloc/.style={draw,minimum width=25mm,minimum height=11mm,fill=yellow!30,align=center}]
+\node[bloc](a){\dots};\node[bloc,right=of a](b){\dots};\node[bloc,right=of b](c){\dots};\draw[->,very thick,SIblue](a)--(b);\draw[->,very thick,SIblue](b)--(c);\end{tikzpicture}}
