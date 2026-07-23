@@ -1,26 +1,41 @@
 name: Compile LaTeX
+
 on:
   push:
   pull_request:
   workflow_dispatch:
+
 jobs:
   build:
     runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        interro:
+          - directory: interros/I01_AnalyseFonctionnelle
+            file: I01_AnalyseFonctionnelle.tex
+            artifact: I01_AnalyseFonctionnelle
+          - directory: interros/I02_Liaisons
+            file: I02_Liaisons.tex
+            artifact: I02_Liaisons
+          - directory: interros/I03_Liaisons
+            file: I03_Liaisons.tex
+            artifact: I03_Liaisons
+
     steps:
       - uses: actions/checkout@v4
-      - name: Compile all interros
+
+      - name: Compile ${{ matrix.interro.artifact }}
         uses: xu-cheng/latex-action@v3
         with:
-          root_file: |
-            interros/I01_AnalyseFonctionnelle/I01_AnalyseFonctionnelle.tex
-          working_directory: .
+          root_file: ${{ matrix.interro.file }}
+          working_directory: ${{ matrix.interro.directory }}
           latexmk_use_xelatex: false
           args: -pdf -interaction=nonstopmode -halt-on-error
-      - name: Collect PDFs
-        run: |
-          mkdir -p artifacts
-          find interros -name '*.pdf' -exec cp {} artifacts/ \;
-      - uses: actions/upload-artifact@v4
+
+      - name: Upload PDF
+        uses: actions/upload-artifact@v4
         with:
-          name: interros-pdf
-          path: artifacts/*.pdf
+          name: ${{ matrix.interro.artifact }}
+          path: ${{ matrix.interro.directory }}/${{ matrix.interro.artifact }}.pdf
+          if-no-files-found: error
