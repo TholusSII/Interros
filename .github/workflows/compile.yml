@@ -1,0 +1,26 @@
+name: Compile LaTeX
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Compile all interros
+        uses: xu-cheng/latex-action@v3
+        with:
+          root_file: |
+            interros/I01_AnalyseFonctionnelle/I01_AnalyseFonctionnelle.tex
+          working_directory: .
+          latexmk_use_xelatex: false
+          args: -pdf -interaction=nonstopmode -halt-on-error
+      - name: Collect PDFs
+        run: |
+          mkdir -p artifacts
+          find interros -name '*.pdf' -exec cp {} artifacts/ \;
+      - uses: actions/upload-artifact@v4
+        with:
+          name: interros-pdf
+          path: artifacts/*.pdf
