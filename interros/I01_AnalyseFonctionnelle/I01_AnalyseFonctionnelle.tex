@@ -1,14 +1,7 @@
 \documentclass[10pt]{article}
 \input{../../framework/interros-framework.tex}
 \setlength{\parindent}{0pt}
-\newcommand{\bddrobotOz}{\begin{tikzpicture}[font=\scriptsize,bloc/.style={draw,rounded corners=1mm,align=center,minimum width=27mm,minimum height=9mm}]
-\node[bloc](r){Robot Oz 440};
-\node[bloc,below left=10mm and 18mm of r](e){Énergie électrique};
-\node[bloc,below=10mm of r](c){Carte de commande};
-\node[bloc,below right=10mm and 18mm of r](m){Moteurs DC};
-\node[bloc,below=25mm of r](cap){Capteurs};
-\draw[-{Triangle[open]},thick](e)--(r);\draw[-{Triangle[open]},thick](c)--(r);\draw[-{Triangle[open]},thick](m)--(r);\draw[-{Triangle[open]},thick](cap)--(r);
-\end{tikzpicture}}
+
 \begin{document}
 \InterroHeader{Ingénierie Système}{10}
 
