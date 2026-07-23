@@ -25,6 +25,17 @@ jobs:
       - name: Récupérer le dépôt
         uses: actions/checkout@v4
 
+      - name: Restaurer les packages du framework des khôlles
+        shell: bash
+        run: |
+          set -euo pipefail
+          base64 --decode framework/vendor/rpcinematik.sty.gz.b64 | gzip --decompress > framework/rpcinematik.sty
+          base64 --decode framework/vendor/rp-sysml.sty.gz.b64 | gzip --decompress > framework/rp-sysml.sty
+          test -s framework/rpcinematik.sty
+          test -s framework/rp-sysml.sty
+          echo "Packages restaurés :"
+          wc -l framework/rpcinematik.sty framework/rp-sysml.sty
+
       - name: Compiler toutes les interros avec pdfLaTeX
         shell: bash
         run: |
