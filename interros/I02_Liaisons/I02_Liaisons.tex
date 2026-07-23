@@ -1,0 +1,46 @@
+\documentclass[10pt]{article}
+\usepackage{../../framework/SI_Interros}
+\usepackage{array}
+\setlength{\parindent}{0pt}
+\renewcommand{\arraystretch}{1.15}
+\newcommand{\mobility}[6]{\begin{tabular}{c|c}R&T\\\hline #1&#2\\#3&#4\\#5&#6\end{tabular}}
+\begin{document}
+\InterroHeader{Modélisation des mécanismes}{10}
+
+\question{Donner les trois types de contacts entre deux solides.}{3}
+\begin{reponse}[25mm]\end{reponse}
+
+\question{Dans chacun des cas suivants, compléter les informations manquantes : symbole cinématique normalisé, nom de la liaison et tableau de mobilités. Utiliser deux couleurs différentes pour les symboles cinématiques normalisés.}{7}
+
+\begin{minipage}[t]{.78\linewidth}
+\centering
+\begin{tabular}{|>{\raggedright\arraybackslash}p{.27\linewidth}|>{\centering\arraybackslash}p{.53\linewidth}|>{\centering\arraybackslash}p{.13\linewidth}|}
+\hline
+\textbf{Désignation de la liaison} & \textbf{Symbole plan} & \textbf{Tableau de mobilités}\\ \hline
+Pivot glissant d'axe $(C,\vec{x})$ & \rule{0pt}{17mm} & \\ \hline
+\rule{0pt}{17mm} & $+\,H$ & \mobility{1}{1}{1}{0}{1}{0}\\ \hline
+Sphère-plan de normale $(E,\vec{y})$ & \rule{0pt}{17mm} & \\ \hline
+\rule{0pt}{20mm} &
+\begin{tikzpicture}[scale=.7,baseline=-2mm]
+\draw[thick,orange] (-1.1,0)--(1.1,0);
+\draw[thick,blue] (-.7,.05)--(-.35,.7)--(.35,.7)--(.7,.05);
+\draw[thick,blue] (-.75,.7)--(.75,.7);
+\draw[thick,orange] (0,0)--(.22,-.55);
+\node[blue] at (.55,.9) {2};\node[orange!80!black] at (-.75,.25) {1};
+\end{tikzpicture}
+\quad $C$ & \\ \hline
+\rule{0pt}{17mm} & $+\,G$ & \mobility{1}{0}{0}{1}{0}{1}\\ \hline
+Sphérique de centre $D$ & \rule{0pt}{17mm} & \\ \hline
+\rule{0pt}{17mm} & $+\,F$ & \mobility{0}{1}{1}{0}{1}{1}\\ \hline
+\end{tabular}
+\end{minipage}\hfill
+\begin{minipage}[t]{.18\linewidth}
+\centering\vspace{25mm}
+\begin{tikzpicture}[>=Latex,scale=1.05]
+\draw[->,very thick] (0,0)--(1.8,0) node[right] {$x$};
+\draw[->,very thick] (0,0)--(0,1.8) node[above] {$y$};
+\draw[->,very thick] (0,0)--(.35,-.35) node[below right] {$z$};
+\fill (0,0) circle (2pt);
+\end{tikzpicture}
+\end{minipage}
+\end{document}
