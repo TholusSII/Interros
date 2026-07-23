@@ -1,9 +1,7 @@
 \documentclass[10pt]{article}
-\usepackage{../../framework/SI_Interros}
-\usepackage{array}
+\input{../../framework/interros-framework.tex}
 \setlength{\parindent}{0pt}
 \renewcommand{\arraystretch}{1.15}
-\newcommand{\mobility}[6]{\begin{tabular}{c|c}R&T\\\hline #1&#2\\#3&#4\\#5&#6\end{tabular}}
 \begin{document}
 \InterroHeader{Modélisation des mécanismes}{10}
 
@@ -18,7 +16,7 @@
 \hline
 \textbf{Désignation de la liaison} & \textbf{Symbole plan} & \textbf{Tableau de mobilités}\\ \hline
 Pivot glissant d'axe $(C,\vec{x})$ & \rule{0pt}{17mm} & \\ \hline
-\rule{0pt}{17mm} & $+\,H$ & \mobility{1}{1}{1}{0}{1}{0}\\ \hline
+\rule{0pt}{17mm} & $+\,H$ & \mobilites{1}{1}{1}{0}{1}{0}\\ \hline
 Sphère-plan de normale $(E,\vec{y})$ & \rule{0pt}{17mm} & \\ \hline
 \rule{0pt}{20mm} &
 \begin{tikzpicture}[scale=.7,baseline=-2mm]
@@ -29,9 +27,9 @@ Sphère-plan de normale $(E,\vec{y})$ & \rule{0pt}{17mm} & \\ \hline
 \node[blue] at (.55,.9) {2};\node[orange!80!black] at (-.75,.25) {1};
 \end{tikzpicture}
 \quad $C$ & \\ \hline
-\rule{0pt}{17mm} & $+\,G$ & \mobility{1}{0}{0}{1}{0}{1}\\ \hline
+\rule{0pt}{17mm} & $+\,G$ & \mobilites{1}{0}{0}{1}{0}{1}\\ \hline
 Sphérique de centre $D$ & \rule{0pt}{17mm} & \\ \hline
-\rule{0pt}{17mm} & $+\,F$ & \mobility{0}{1}{1}{0}{1}{1}\\ \hline
+\rule{0pt}{17mm} & $+\,F$ & \mobilites{0}{1}{1}{0}{1}{1}\\ \hline
 \end{tabular}
 \end{minipage}\hfill
 \begin{minipage}[t]{.18\linewidth}
