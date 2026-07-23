@@ -25,36 +25,31 @@ jobs:
       - name: Récupérer le dépôt
         uses: actions/checkout@v4
 
-      - name: Compiler toutes les interros
+      - name: Compiler toutes les interros avec LuaLaTeX
         shell: bash
         run: |
           set -uo pipefail
           mkdir -p artifacts logs
-
           mapfile -d '' TEXFILES < <(find interros -type f -name '*.tex' -print0 | sort -z)
-
           if [ "${#TEXFILES[@]}" -eq 0 ]; then
             echo "Aucun fichier .tex trouvé dans interros/."
             exit 1
           fi
 
           failures=0
-
           for texfile in "${TEXFILES[@]}"; do
             directory="$(dirname "$texfile")"
             filename="$(basename "$texfile")"
             basename="${filename%.tex}"
-            logfile="logs/${basename}.log"
+            logfile="$PWD/logs/${basename}.log"
 
             echo "::group::Compilation de $texfile"
-
             docker run --rm \
               -v "$PWD:/work" \
               -w "/work/$directory" \
               ghcr.io/xu-cheng/texlive-full:latest \
-              latexmk -pdf -interaction=nonstopmode -halt-on-error -file-line-error "$filename" \
+              latexmk -lualatex -interaction=nonstopmode -halt-on-error -file-line-error "$filename" \
               2>&1 | tee "$logfile"
-
             status=${PIPESTATUS[0]}
             echo "::endgroup::"
 
@@ -62,14 +57,13 @@ jobs:
               cp "$directory/$basename.pdf" "artifacts/$basename.pdf"
               echo "PDF créé : $basename.pdf"
             else
-              echo "::error file=$texfile::Échec de compilation de $texfile. Consulter $logfile."
+              echo "::error file=$texfile::Échec de compilation de $texfile. Consulter logs/${basename}.log."
               failures=$((failures + 1))
             fi
           done
 
           echo "PDF disponibles :"
           find artifacts -maxdepth 1 -type f -name '*.pdf' -print || true
-
           if [ "$failures" -ne 0 ]; then
             echo "$failures compilation(s) ont échoué."
             exit 1
