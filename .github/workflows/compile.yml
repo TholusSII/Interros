@@ -36,6 +36,33 @@ jobs:
           echo "Packages restaurés :"
           wc -l framework/rpcinematik.sty framework/rp-sysml.sty
 
+      - name: Vérifier le chargement du framework SI
+        shell: bash
+        run: |
+          set -euo pipefail
+          cat > interros/I01_AnalyseFonctionnelle/framework-smoke-test.tex <<'EOF'
+          \documentclass[10pt]{article}
+          \input{../../framework/interros-framework.tex}
+          \makeatletter
+          \@ifundefined{question}{\PackageError{framework-smoke-test}{Commande question absente}{}}{}
+          \@ifundefined{InterroHeader}{\PackageError{framework-smoke-test}{Commande InterroHeader absente}{}}{}
+          \@ifundefined{scPivot}{\PackageError{framework-smoke-test}{Commande scPivot absente}{}}{}
+          \@ifundefined{scGlissiere}{\PackageError{framework-smoke-test}{Commande scGlissiere absente}{}}{}
+          \@ifundefined{sysmlActeur}{\PackageError{framework-smoke-test}{Commande sysmlActeur absente}{}}{}
+          \makeatother
+          \begin{document}
+          Framework SI chargé correctement.
+          \end{document}
+          EOF
+
+          docker run --rm \
+            -v "$PWD:/work" \
+            -w "/work/interros/I01_AnalyseFonctionnelle" \
+            ghcr.io/xu-cheng/texlive-full:latest \
+            latexmk -pdf -interaction=nonstopmode -halt-on-error -file-line-error framework-smoke-test.tex
+
+          rm -f interros/I01_AnalyseFonctionnelle/framework-smoke-test.*
+
       - name: Compiler toutes les interros avec pdfLaTeX
         shell: bash
         run: |
