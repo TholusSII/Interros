@@ -83,6 +83,9 @@ jobs:
           - name: IB03 Outils mathématiques
             directory: interros/IB03_OutilsMathematiques
             file: IB03_OutilsMathematiques.tex
+          - name: IB04 Loi entrée-sortie
+            directory: interros/IB04_LoiEntreeSortie
+            file: IB04_LoiEntreeSortie.tex
 
     steps:
       - name: Récupérer le dépôt
