@@ -1,0 +1,99 @@
+\documentclass[10pt]{article}
+\input{../../framework/interros-framework.tex}
+\setlength{\parindent}{0pt}
+
+\newcommand{\bddSecateur}{%
+\begin{tikzpicture}[>=Latex,thick,scale=.78,every node/.style={transform shape}]
+  \tikzset{bloc/.style={draw,rounded corners,fill=yellow!15,minimum width=29mm,minimum height=10mm,align=center,font=\scriptsize},sys/.style={bloc,fill=cyan!12,minimum width=40mm},sub/.style={bloc,fill=red!12,minimum width=34mm}}
+  \node[sys] (s) at (0,0) {\textbf{Sécateur électrique complet}\\Lixion Evolution};
+  \node[sub] (taille) at (0,2.0) {\textbf{Partie fixée à la taille}};
+  \node[sub] (sec) at (0,-2.0) {\textbf{Sécateur électrique}};
+  \node[bloc] (har) at (0,3.45) {Harnais};
+  \node[bloc] (sup) at (-4.0,2.65) {Support de batterie};
+  \node[bloc] (bat) at (4.0,2.65) {Batterie électrique};
+  \node[bloc] (chg) at (-4.0,.85) {Chargeur de batterie};
+  \node[bloc] (cord) at (-4.0,-.35) {Cordon d'alimentation};
+  \node[bloc] (mal) at (4.0,.75) {Mallette de transport};
+  \node[bloc] (lames) at (4.0,-1.0) {Mécanisme à lames};
+  \node[bloc] (ve) at (4.0,-2.0) {Système vis--écrou};
+  \node[bloc] (red) at (4.0,-3.0) {Réducteur de vitesse};
+  \node[bloc] (carte) at (-4.0,-1.4) {Carte électronique};
+  \node[bloc] (hall) at (-4.0,-2.4) {Capteur à effet Hall};
+  \node[bloc] (gat) at (-1.7,-3.65) {Gâchette};
+  \node[bloc] (mot) at (1.7,-3.65) {Moteur électrique};
+  \foreach \a/\b in {taille/s,sec/s,har/taille,sup/taille,bat/taille,chg/s,cord/s,mal/s,lames/sec,ve/sec,red/sec,carte/sec,hall/sec,gat/sec,mot/sec}{\draw[-] (\a)--(\b);}
+\end{tikzpicture}}
+
+\newcommand{\chaineSecateur}{%
+\begin{tikzpicture}[>=Latex,thick,node distance=7mm and 7mm]
+  \tikzset{f/.style={draw,minimum width=23mm,minimum height=10mm,align=center,font=\scriptsize\bfseries},r/.style={draw,dashed,minimum width=23mm,minimum height=8mm,align=center,font=\scriptsize}}
+  \node[f] (acq) {\dotfill};
+  \node[r,below=of acq] (ca) {\dotfill};
+  \node[f,right=13mm of acq] (trait) {\dotfill};
+  \node[r,below=of trait] (ct) {\dotfill};
+  \node[f,below=19mm of acq] (acq2) {\dotfill};
+  \node[r,below=of acq2] (ca2) {\dotfill};
+  \draw[->] (-2.0,.0)--(acq.west) node[midway,above,font=\scriptsize,align=center]{Action sur\\la gâchette};
+  \draw[->] (acq)--(trait); \draw[->] (acq2)--(trait);
+  \draw[blue!70!black,rounded corners] (-2.4,-3.4) rectangle (4.9,1.25);
+  \node[blue!70!black,font=\scriptsize\bfseries,anchor=south east] at (4.8,-3.3) {Chaîne d'information};
+  \node[font=\scriptsize] at (-2.1,-1.65) {\dotfill};
+
+  \begin{scope}[yshift=-55mm]
+    \node[f] (sto) {STOCKER};
+    \node[f,right=of sto] (mod) {MODULER};
+    \node[f,right=of mod] (conv) {CONVERTIR};
+    \node[f,right=of conv] (ada) {ADAPTER};
+    \node[f,right=of ada] (tra) {TRANSMETTRE};
+    \node[f,right=of tra] (agir) {AGIR};
+    \foreach \a/\b in {sto/mod,mod/conv,conv/ada,ada/tra,tra/agir}{\draw[->] (\a)--(\b);}
+    \foreach \n in {sto,mod,conv,ada,tra,agir}{\node[font=\scriptsize,above=5mm of \n] {\dotfill};\node[font=\scriptsize,below=5mm of \n] {\dotfill};}
+    \draw[green!50!black,rounded corners] (-1.5,-1.3) rectangle (16.0,1.6);
+    \node[green!50!black,font=\scriptsize\bfseries,anchor=south east] at (15.8,-1.2) {Chaîne d'énergie};
+    \draw[very thick,blue!60,->] (15.0,2.3)--(15.0,-2.1);
+    \node[font=\scriptsize,anchor=west] at (14.0,2.55) {\dotfill};
+    \node[font=\scriptsize,anchor=west] at (15.1,-2.1) {\dotfill};
+    \node[font=\scriptsize,rotate=90] at (16.15,.1) {Mécanisme à lames};
+  \end{scope}
+\end{tikzpicture}}
+
+\newcommand{\diagrammeContexteDrone}{%
+\begin{tikzpicture}[>=Latex,thick,scale=.9,every node/.style={transform shape}]
+  \tikzset{b/.style={draw,fill=yellow!15,minimum width=27mm,minimum height=13mm,align=center,font=\scriptsize},act/.style={font=\scriptsize,align=center}}
+  \node[b,minimum width=38mm,minimum height=24mm] (drone) at (0,0) {\textbf{Drone CineDrone L}};
+  \node[b] (vent) at (4.2,1.5) {Vent};
+  \node[b] (prod) at (4.2,-1.5) {Production du\\documentaire};
+  \node[act] (chef) at (-3.2,1.8) {Chef opérateur};
+  \node[act] (pilote) at (-3.2,.1) {Pilote drone};
+  \node[act] (nac) at (-3.2,-1.6) {Pilote nacelle};
+  \draw (chef)--(drone); \draw (pilote)--(drone); \draw (nac)--(drone); \draw (drone)--(vent); \draw (drone)--(prod);
+  \foreach \p in {chef,pilote,nac}{\draw[fill=white] (\p.north west)+(.2,.35) circle (1.4pt);}
+\end{tikzpicture}}
+
+\begin{document}
+\InterroHeader{Ingénierie Système -- Interro blanche 1}{10}
+
+La période de la taille de la vigne dure environ deux mois. Les viticulteurs coupent huit à dix heures par jour. Pour réduire la fatigue de la main et du bras, la société PELLENC commercialise un sécateur électrique. Ce système se compose d'une batterie, portée à l'aide d'un harnais par l'utilisateur, alimentant le sécateur par un câble.
+
+\medskip
+\textbf{Diagramme de définition de blocs du système complet :}
+\begin{center}\resizebox{.83\linewidth}{!}{\bddSecateur}\end{center}
+
+\question{Compléter la chaîne d'information et la chaîne d'énergie du sécateur en indiquant les fonctions, les constituants et les types d'énergie.}{7}
+\begin{center}\resizebox{.98\linewidth}{!}{\chaineSecateur}\end{center}
+
+\newpage
+\InterroHeader{Ingénierie Système -- Interro blanche 1}{10}
+
+\question{Représenter le diagramme SysML permettant de définir le besoin auquel répond le sécateur électrique.}{2}
+\begin{reponse}[82mm]\end{reponse}
+
+\question{Donner le nom du diagramme SysML représenté ci-contre.}{1}
+\begin{minipage}[t]{.46\linewidth}
+\begin{reponse}[40mm]\end{reponse}
+\end{minipage}\hfill
+\begin{minipage}[t]{.50\linewidth}
+\centering\resizebox{\linewidth}{!}{\diagrammeContexteDrone}
+\end{minipage}
+
+\end{document}
