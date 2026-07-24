@@ -77,6 +77,9 @@ jobs:
           - name: IB01 Analyse fonctionnelle
             directory: interros/IB01_AnalyseFonctionnelle
             file: IB01_AnalyseFonctionnelle.tex
+          - name: IB02 Liaisons
+            directory: interros/IB02_Liaisons
+            file: IB02_Liaisons.tex
 
     steps:
       - name: Récupérer le dépôt
