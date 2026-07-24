@@ -92,6 +92,9 @@ jobs:
           - name: IB07 Schéma cinématique
             directory: interros/IB07_SchemaCinematique
             file: IB07_SchemaCinematique.tex
+          - name: IB08 Loi entrée-sortie
+            directory: interros/IB08_LoiEntreeSortie
+            file: IB08_LoiEntreeSortie.tex
 
     steps:
       - name: Récupérer le dépôt
