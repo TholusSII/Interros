@@ -1,0 +1,122 @@
+\documentclass[10pt]{article}
+\input{../../framework/interros-framework.tex}
+\setlength{\parindent}{0pt}
+\usetikzlibrary{arrows.meta,calc,angles,quotes,positioning}
+
+\newcommand{\schemaStepper}{%
+\begin{tikzpicture}[scale=.82,>=Latex,line cap=round,line join=round]
+  \coordinate (A) at (0,0);
+  \coordinate (O) at (-1.15,2.55);
+  \coordinate (B) at (4.85,4.05);
+  \coordinate (C) at (2.05,1.85);
+  \draw[very thick] (O)--(B) node[midway,above] {3};
+  \draw[very thick] (A)--(B) node[midway,below right] {2};
+  \draw[very thick,gray] (A)--(C) node[midway,left] {1};
+  \draw[very thick,gray] (C)--($(C)!.72!(B)$);
+  \draw[thick] ($(C)+(-.22,.16)$)--($(C)+(.18,-.16)$)--($(C)+(.50,.28)$)--($(C)+(.10,.60)$)--cycle;
+  \draw[thick] ($(C)!.48!(B)+(-.18,.12)$) rectangle ($(C)!.48!(B)+(.38,.52)$);
+  \foreach \P/\lab in {A/A,O/O,B/B,C/C}{\fill[white] (\P) circle (2.3mm);\draw[thick] (\P) circle (2.3mm);\node[above right] at (\P) {\lab};}
+  \draw[->] (A)--++(1.25,0) node[right] {$\vec x_0$};
+  \draw[->] (A)--++(0,1.25) node[above] {$\vec y_0$};
+  \draw[->] (A)--++(1.08,.64) node[right] {$\vec x_1$};
+  \draw[->] (O)--++(1.25,0) node[right] {$\vec x_0$};
+  \draw[->] (O)--++(.95,.33) node[right] {$\vec x_3$};
+  \draw[->] (A)+(1,0) arc[start angle=0,end angle=31,radius=1];
+  \node at (1.12,.28) {$\alpha_1$};
+  \draw[->] (O)+(1,0) arc[start angle=0,end angle=18,radius=1];
+  \node at (-.08,2.77) {$\alpha_3$};
+  \draw[<->] ($(A)+(.15,-.42)$)--($(B)+(.15,-.42)$) node[midway,below] {$\lambda(t)$};
+  \draw[thick] (-1.7,-.25)--(.45,-.25);
+  \draw[thick] (-1.15,0)--(-1.15,-.25);
+  \node[left] at (-1.35,1.1) {0};
+\end{tikzpicture}}
+
+\newcommand{\grapheLiaisons}{%
+\begin{tikzpicture}[node distance=18mm and 28mm,>=Latex]
+  \tikzset{solide/.style={circle,draw=SIblue,very thick,minimum size=11mm,font=\bfseries,text=red}}
+  \node[solide] (s0) {0};
+  \node[solide,right=of s0] (s1) {1};
+  \node[solide,below=of s0] (s3) {3};
+  \node[solide,right=of s3] (s2) {2};
+  \draw[SIblue,very thick] (s0)--node[above,font=\small] {Pivot d'axe $(A,\vec z_1)$} (s1);
+  \draw[SIblue,very thick] (s0)--node[left,font=\small,align=center] {Pivot d'axe\\$(O,\vec z_0)$} (s3);
+  \draw[SIblue,very thick] (s1)--node[right] {\dotfill} (s2);
+  \draw[SIblue,very thick] (s3)--node[below] {\dotfill} (s2);
+\end{tikzpicture}}
+
+\newcommand{\schemaPompe}{%
+\begin{tikzpicture}[scale=.82,>=Latex,line cap=round]
+  \coordinate (O) at (0,0);
+  \coordinate (A) at (.35,1.75);
+  \coordinate (B) at (5.45,.05);
+  \draw[very thick] (O)--(A) node[midway,left] {1};
+  \draw[very thick] (A)--(B) node[midway,above right] {2};
+  \draw[very thick,brown] (O)--(B) node[midway,below] {3};
+  \foreach \P/\lab in {O/O,A/A,B/B}{\fill[white] (\P) circle (2.2mm);\draw[thick] (\P) circle (2.2mm);\node[above right] at (\P) {\lab};}
+  \draw[->] (O)--++(1.25,0) node[right] {$\vec x$};
+  \draw[->] (O)--++(0,1.25) node[above] {$\vec y$};
+  \draw[->] (O)--++(.40,1.20) node[right] {$\vec x_1$};
+  \draw[->] (B)--++(1.15,0) node[right] {$\vec x$};
+  \draw[->] (B)--++(1.05,-.33) node[right] {$\vec x_2$};
+  \draw[->] (O)+(.8,0) arc[start angle=0,end angle=71,radius=.8];
+  \node at (.72,.48) {$\alpha$};
+  \draw[->] (B)+(1,0) arc[start angle=0,end angle=-18,radius=1];
+  \node at (6.34,-.12) {$\beta$};
+  \draw[thick] (-.45,-.22)--(.55,-.22);
+  \draw[thick] (5,-.18)--(5.9,-.18);
+  \node at (2.85,.55) {$x(t)$};
+  \node[below] at (0,-.3) {0};
+  \node[below] at (5.45,-.3) {0};
+\end{tikzpicture}}
+
+\begin{document}
+\InterroHeader{Loi entrée-sortie}{10}
+
+Le stepper est constitué de deux ensembles \{pédale 3 + vérin amortisseur 1,2\} identiques implantés symétriquement sur un châssis 0. La réponse à la problématique nécessite l'étude d'un seul de ces deux ensembles.
+
+On associe le repère fixe $R_0=(O,\vec x_0,\vec y_0,\vec z_0)$ au châssis 0, le repère $R_1=(A,\vec x_1,\vec y_1,\vec z_1)$ au corps 1 et le repère $R_3=(O,\vec x_3,\vec y_3,\vec z_3)$ à la pédale 3.
+
+\begin{itemize}
+  \item $\alpha_1(t)$ : paramètre de position du corps 1 par rapport au châssis 0 ;
+  \item $\alpha_3(t)$ : paramètre de position de la pédale 3 par rapport au châssis 0 ;
+  \item $\lambda(t)$ : paramètre de position de la tige 2 par rapport au corps 1.
+\end{itemize}
+
+On donne :
+\[
+\overrightarrow{OB}=x_B\vec x_3+y_B\vec y_3,
+\qquad \overrightarrow{AB}=\lambda(t)\vec x_1,
+\qquad \overrightarrow{OA}=x_A\vec x_0+y_A\vec y_0.
+\]
+
+\begin{center}\schemaStepper\end{center}
+
+\textbf{Objectif :} déterminer la loi entrée-sortie en position entre la translation du vérin et la rotation de la pédale 3.
+
+\question{Compléter le graphe de liaisons ci-dessous.}{2}
+\begin{center}\grapheLiaisons\end{center}
+
+\newpage
+\InterroHeader{Loi entrée-sortie}{10}
+
+\question{Donner les paramètres des mouvements d'entrée et de sortie.}{1}
+\begin{reponse}[20mm]\end{reponse}
+
+\question{Écrire, sous forme vectorielle, la fermeture géométrique.}{2}
+\begin{reponse}[24mm]\end{reponse}
+
+\question{Déterminer la loi entrée-sortie entre $\lambda(t)$ et $\alpha_3$.}{3}
+\begin{reponse}[66mm]\end{reponse}
+
+Le dessin ci-dessous représente le modèle cinématique d'une pompe. On retrouve sur les représentations les mêmes solides numérotés, les mêmes points caractéristiques ainsi que les mêmes systèmes d'axes.
+
+On pose : $\overline{OA}=R$, $\overline{AB}=x(t)$ et $\overline{OB}=L$.
+
+\begin{center}\schemaPompe\end{center}
+
+\textbf{Objectif :} déterminer la loi entrée-sortie en position entre la translation du vérin et la rotation du levier 1.
+
+\question{Déterminer la loi entrée-sortie entre $x(t)$ et $\alpha$.}{2}
+\begin{reponse}[32mm]\end{reponse}
+
+\end{document}
