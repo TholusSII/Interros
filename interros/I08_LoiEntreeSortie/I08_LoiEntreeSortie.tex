@@ -1,0 +1,72 @@
+\documentclass[10pt]{article}
+\input{../../framework/interros-framework.tex}
+\setlength{\parindent}{0pt}
+\begin{document}
+\InterroHeader{Loi entrée--sortie}{10}
+
+\textbf{Objectif :} déterminer la loi entrée--sortie en position entre la translation du vérin et la rotation du levier 1.
+
+\medskip
+Le dessin ci-dessous représente la vue en coupe d'une pompe et son modèle cinématique. On pose
+\[
+\overrightarrow{OA}=R\,\vec x_1,\qquad \overrightarrow{AB}=x(t)\,\vec x_2,\qquad \overrightarrow{OB}=L\,\vec x.
+\]
+On note $\alpha=(\vec x,\vec x_1)$ et $\beta=(\vec x,\vec x_2)$.
+
+\begin{center}
+\begin{tikzpicture}[scale=1,>=Latex]
+  \coordinate (O) at (0,0); \coordinate (B) at (8,0); \coordinate (A) at (2.3,1.45);
+  \draw[->] (-.5,0)--(8.8,0) node[right]{$\vec x$};
+  \draw[->] (O)--++(75:2.2) node[above]{$\vec y$};
+  \draw[very thick,red] (O)--(A) node[midway,above left]{1};
+  \draw[very thick,blue] (A)--($(A)!0.62!(B)$) node[midway,above]{2};
+  \draw[very thick,brown] ($(A)!0.55!(B)$)--(B) node[midway,below]{3};
+  \filldraw[fill=white,thick] (O) circle(2.2pt) node[below left]{$O$};
+  \filldraw[fill=white,thick] (A) circle(2.2pt) node[above]{$A$};
+  \filldraw[fill=white,thick] (B) circle(2.2pt) node[above]{$B$};
+  \draw (O) ++(0:0.6) arc[start angle=0,end angle=32,radius=.6] node[pos=.7,right]{$\alpha$};
+  \draw (B) ++(180:0.65) arc[start angle=180,end angle=166,radius=.65] node[pos=.55,left]{$\beta$};
+  \draw[thick] (-.35,-.22)--(.35,-.22); \foreach \x in {-.3,-.15,...,.3}{\draw (\x,-.22)--++(-.12,-.18);} 
+  \draw[thick] (7.65,-.22)--(8.35,-.22); \foreach \x in {7.7,7.85,...,8.3}{\draw (\x,-.22)--++(-.12,-.18);} 
+\end{tikzpicture}
+\end{center}
+
+\question{Compléter le graphe de liaisons ci-dessous.}{2}
+\begin{center}
+\begin{tikzpicture}[>=Latex]
+\foreach \n/\x/\y in {0/0/0,1/4/0,2/4/-2.2,3/0/-2.2}{\node[draw,circle,minimum size=8mm] (n\n) at (\x,\y) {\n};}
+\draw (n0)--node[above]{Pivot d'axe $(O,\vec z)$}(n1);
+\draw (n0)--node[left]{Pivot d'axe $(B,\vec z)$}(n3);
+\draw (n3)--node[below]{\dotfill\hspace{28mm}}(n2);
+\draw (n1)--node[right]{\dotfill\hspace{28mm}}(n2);
+\end{tikzpicture}
+\end{center}
+
+\newpage
+\InterroHeader{Loi entrée--sortie}{10}
+\question{Donner les paramètres des mouvements d'entrée et de sortie.}{1}
+\begin{reponse}[18mm]\end{reponse}
+\question{Écrire, sous forme vectorielle, la fermeture géométrique. Ne pas résoudre.}{1}
+\begin{reponse}[25mm]\end{reponse}
+\question{Trouver une autre méthode permettant d'obtenir le résultat plus rapidement.}{1}
+\begin{reponse}[30mm]\end{reponse}
+
+\question{Donner la liaison équivalente des liaisons en parallèle suivantes.}{5}
+\renewcommand{\arraystretch}{1.2}
+\begin{tabular}{|p{.31\linewidth}|p{.31\linewidth}|p{.31\linewidth}|}\hline
+\centering
+\begin{tikzpicture}[scale=.55]\draw[thick](-2,0)--(2,0);\draw[very thick,blue](-1.5,0)--(1.5,0);\draw[red,thick](-1.5,0)circle(.25);\draw[red,thick](1.5,0)circle(.25);\node at (-1.5,.55){$A$};\node at (1.5,.55){$B$};\node at (0,.4){1};\node at (-2.2,.4){0};\end{tikzpicture}
+&\centering
+\begin{tikzpicture}[scale=.55]\draw[very thick,red](-1.8,-.6)--(1.8,.6);\draw[very thick,blue](-1.4,-.5)--(1.4,.5);\draw[thick](-1.2,-.4)circle(.22);\draw[thick](1.2,.4)circle(.22);\end{tikzpicture}
+&\centering
+\begin{tikzpicture}[scale=.55]\draw[very thick,blue](-1.7,.7)--(1.7,-.7);\draw[very thick,green!60!black](-1.4,-.6)--(1.4,.6);\draw[thick](-1.2,-.5)circle(.22);\draw[thick](1.2,.5)circle(.22);\node at (-1.55,-.85){$A$};\node at (1.55,.85){$B$};\end{tikzpicture}\\[15mm]\hline
+\centering Liaison équivalente : &\centering Liaison équivalente : &\centering Liaison équivalente :\\[16mm]\hline
+\centering
+\begin{tikzpicture}[scale=.55]\draw[very thick,blue](-1.5,0)--(1.5,0);\draw[red,thick](-1.5,0)circle(.25);\draw[red,thick](0,0)circle(.25);\draw[thick](1.5,-.5)--(1.5,.5);\node at (-1.5,.55){$O$};\node at (0,.55){$A$};\end{tikzpicture}
+&\centering
+\begin{tikzpicture}[scale=.55]\draw[thick](-1.8,0)rectangle(1.8,.55);\draw[thick](-1.5,.28)circle(.22);\draw[thick](1.5,.28)circle(.22);\node at (-1.5,.8){$O$};\node at (1.5,.8){$P$};\end{tikzpicture}
+&\\[15mm]\hline
+\centering Liaison équivalente : &\centering Liaison équivalente : &\\[22mm]\hline
+\end{tabular}
+
+\end{document}
