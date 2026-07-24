@@ -41,6 +41,9 @@ jobs:
           - name: I04 Liaisons équivalentes
             directory: interros/I04_LiaisonsEquivalentes
             file: I04_LiaisonsEquivalentes.tex
+          - name: I05 Torseurs
+            directory: interros/I05_Torseurs
+            file: I05_Torseurs.tex
 
     steps:
       - name: Récupérer le dépôt
