@@ -1,0 +1,104 @@
+\documentclass[10pt]{article}
+\input{../../framework/interros-framework.tex}
+\setlength{\parindent}{0pt}
+
+\newcommand{\schemaReservoir}{%
+\begin{tikzpicture}[scale=.78,>=Latex,thick]
+  \draw (0,0) rectangle (2.1,3.2);
+  \draw[fill=blue!8] (0,0) rectangle (2.1,2.2);
+  \draw[<->] (2.35,0)--(2.35,2.2) node[midway,right] {$h(t)$};
+  \draw[->] (-1.2,2.75)--(0,2.75) node[midway,above] {$q_e(t)$};
+  \draw[->] (2.1,.35)--(3.25,.35) node[midway,above] {$q_s(t)$};
+  \node[align=center] at (1.05,1.35) {réservoir\\section $S$};
+  \node[align=center] at (-2.35,1.2) {variateur\\+ moteur\\+ pompe};
+  \draw[rounded corners] (-3.1,.35) rectangle (-1.55,2.05);
+  \draw[->] (-1.55,1.2)--(-.15,1.2);
+  \node[align=center] at (4.25,1.9) {capteur de\\pression};
+  \draw[rounded corners] (3.45,1.25) rectangle (5.05,2.55);
+  \draw[->] (2.1,1.9)--(3.45,1.9);
+  \draw[->] (5.05,1.9)--(6.2,1.9) node[right] {$v_h(t)$};
+\end{tikzpicture}}
+
+\newcommand{\schemaBloc}{%
+\begin{tikzpicture}[>=Latex,node distance=11mm and 9mm,thick]
+\tikzset{bloc/.style={draw,minimum width=13mm,minimum height=9mm,align=center},sum/.style={draw,circle,inner sep=1.3pt}}
+\node (hc) {$H_c(p)$};
+\node[bloc,right=of hc] (a1) {$\alpha$};
+\node[sum,right=of a1] (s) {$\scriptstyle +\atop\scriptstyle -$};
+\node[bloc,right=of s] (c) {$C(p)$};
+\node[bloc,right=of c] (A) {$A$};
+\node[bloc,right=of A] (T) {$T(p)$};
+\node[right=of T] (h) {$H(p)$};
+\node[bloc,below=14mm of A] (a2) {$\alpha$};
+\draw[->] (hc)--(a1);
+\draw[->] (a1)--node[above] {$V_c(p)$}(s);
+\draw[->] (s)--node[above] {$\varepsilon(p)$}(c);
+\draw[->] (c)--node[above] {$V(p)$}(A);
+\draw[->] (A)--node[above] {$Q_e(p)$}(T);
+\draw[->] (T)--(h);
+\draw[->] (h) |- (a2.east);
+\draw[->] (a2.west) -| node[pos=.18,left] {$V_h(p)$} (s.south);
+\end{tikzpicture}}
+
+\newcommand{\courbeCapteur}{%
+\begin{tikzpicture}[x=4.1cm,y=.53cm,>=Latex]
+  \draw[step=.2cm,gray!30,very thin] (0,-5.5) grid (2.2,6);
+  \draw[->] (0,0)--(2.25,0) node[right] {$h\ (\mathrm m)$};
+  \draw[->] (0,-5.7)--(0,6.2) node[above] {$v_h\ (\mathrm V)$};
+  \foreach \x in {0,.2,.4,.6,.8,1,1.2,1.4,1.6,1.8,2,2.2}{\draw (\x,.12)--(\x,-.12) node[below=2pt] {\scriptsize\x};}
+  \foreach \y in {-5,-4,-3,-2,-1,1,2,3,4,5,6}{\draw (.025,\y)--(-.025,\y) node[left] {\scriptsize\y};}
+  \draw[red!70!black,very thick] plot[smooth] coordinates {(0,-5)(.2,-4)(.4,-3)(.6,-2)(.8,-1)(1,0)(1.2,1)(1.4,2)(1.6,3)(1.8,4)(2,5)};
+  \node[above] at (1.1,6.35) {\small Tension $v_h$ en fonction de la hauteur $h$};
+\end{tikzpicture}}
+
+\begin{document}
+\InterroHeader{Modélisation des systèmes asservis}{20}
+
+Pour pouvoir faire face en cas d'incendie, de nombreuses communes disposent d'un réservoir d'eau. Le réservoir étudié est alimenté par une pompe entraînée par une machine asynchrone commandée par un variateur de fréquence. La hauteur d'eau est mesurée par un capteur de pression placé au fond du réservoir.
+
+\begin{center}\schemaReservoir\end{center}
+
+Le réservoir est un cylindre de section constante $S=3{,}5\,\mathrm{m^2}$. On considère que le débit de sortie $q_s$ (en $\mathrm{m^3\,s^{-1}}$) est proportionnel à la hauteur d'eau $h$ (en m).
+
+\textbf{Cahier des charges :} le réservoir doit atteindre 95\,\% de la hauteur voulue en 15 min, avec une précision en régime permanent de 10\,\%.
+
+Le système peut être représenté par le schéma-blocs suivant :
+
+\begin{center}\resizebox{.96\linewidth}{!}{\schemaBloc}\end{center}
+
+Le capteur de pression est modélisé par la courbe suivante :
+
+\begin{center}\resizebox{.95\linewidth}{!}{\courbeCapteur}\end{center}
+
+\question{En déduire la valeur du gain $\alpha$ modélisant le capteur de pression.}{2}
+\begin{reponse}[25mm]\end{reponse}
+
+\newpage
+\InterroHeader{Modélisation des systèmes asservis}{20}
+
+\question{Donner la transformée de Laplace de l'équation différentielle modélisant le réservoir, puis donner la fonction de transfert $T(p)$ sous forme canonique :
+\[
+S\,\frac{\mathrm dh(t)}{\mathrm dt}+\beta\,h(t)=q_e(t).
+\]}{2}
+\begin{reponse}[42mm]\end{reponse}
+
+\question{Donner la transformée de Laplace d'un échelon $H_c(t)$ d'amplitude $1{,}25$.}{2}
+\begin{reponse}[31mm]\end{reponse}
+
+\question{Appliquer le théorème de la valeur finale afin d'obtenir la valeur finale de $H(p)$ pour un échelon d'amplitude $1{,}5$, avec
+\[
+\frac{H(p)}{H_c(p)}=\frac{0{,}5}{1+500p}.
+\]}{2}
+\begin{reponse}[43mm]\end{reponse}
+
+\question{Mettre sous forme canonique les systèmes suivants et identifier leurs paramètres caractéristiques.}{3}
+\[
+\frac{4}{(3+0{,}01p)(2+p)}\,;
+\qquad
+\frac{(1+k_1k_2p)(1+k_3p)}{(1+k_3p)(k_4+p)}\,;
+\qquad
+\frac{4(2+0{,}01p)(0{,}5+p)}{p(3+0{,}01p)(2+p)}.
+\]
+\begin{reponse}[75mm]\end{reponse}
+
+\end{document}
