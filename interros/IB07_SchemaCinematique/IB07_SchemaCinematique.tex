@@ -1,0 +1,76 @@
+\documentclass[10pt]{article}
+\input{../../framework/interros-framework.tex}
+\setlength{\parindent}{0pt}
+\usetikzlibrary{arrows.meta,calc,positioning}
+
+\newcommand{\buteeReglable}{%
+\begin{tikzpicture}[scale=.78,line cap=round,line join=round]
+  \draw[very thick,fill=gray!15] (-.2,-.8) rectangle (5.4,1.5);
+  \draw[very thick,fill=gray!30] (0,0) -- (1.2,0) -- (1.9,.65) -- (3.1,.65) -- (3.1,.1) -- (1.6,.1) -- (1.05,-.35) -- (0,-.35) -- cycle;
+  \draw[very thick,fill=green!55] (1.0,-.8) rectangle (1.65,1.7);
+  \draw[very thick,fill=orange!65] (1.3,-.25) -- (2.0,.4) -- (2.6,.4) -- (2.1,-.25) -- cycle;
+  \draw[very thick,fill=violet!50] (2.0,.05) rectangle (4.9,.45);
+  \draw[very thick] (3.0,-.02)--(3.0,.52);
+  \draw[very thick,fill=violet!45] (4.9,-.05) rectangle (5.25,.55);
+  \draw[very thick,fill=violet!45] (5.25,-.2) rectangle (5.85,.7);
+  \draw[->] (5.1,.25)--(6.4,.25) node[right] {$\vec x$};
+  \node at (.55,-1.05) {1}; \node at (5.55,-1.05) {2}; \node at (1.35,-1.05) {3}; \node at (2.35,-1.05) {4};
+  \node[draw=SIblue,thick,fill=white] at (4.1,1.25) {Vis 2};
+\end{tikzpicture}}
+
+\newcommand{\schemaSpatial}{%
+\begin{tikzpicture}[scale=.72,>=Latex,line cap=round]
+  \coordinate (A) at (0,0); \coordinate (B) at (1.2,3.0); \coordinate (C) at (4.3,2.1); \coordinate (D) at (4.3,-.5);
+  \draw[blue,very thick] (A)--(B); \draw[red,very thick] (B)--(2.8,2.55); \draw[green!60!black,very thick] (2.8,2.55)--(C); \draw[orange,very thick] (C)--(D);
+  \filldraw[fill=white,blue,very thick] (B) circle (.28); \filldraw[fill=white,green!60!black,very thick] (C) circle (.28);
+  \draw[black,very thick] (A)+(-.35,-.15)--++(.7,0); \draw[black,very thick] (D)+(-.35,-.15)--++(.7,0);
+  \node[blue,left] at (.35,1.5) {$S_1$}; \node[red,above] at (2.1,2.8) {$S_2$}; \node[green!60!black,above] at (3.6,2.45) {$S_3$}; \node[orange,right] at (4.3,.8) {$S_4$};
+  \node[below left] at (A) {$A$}; \node[above left] at (B) {$B$}; \node[right] at (C) {$C$}; \node[below] at (A) {$S_0$}; \node[below] at (D) {$S_0$};
+  \draw[->] (A)--++(1.5,-.7); \draw[->] (A)--++(-.3,1.5); \draw[->] (B)--++(-1.1,.35); \draw[->] (B)--++(.2,1.2);
+  \draw[->] (C)--++(1.5,-.2); \draw[->] (C)--++(.8,1.3);
+\end{tikzpicture}}
+
+\newcommand{\schemaTorseurs}{%
+\begin{tikzpicture}[scale=.78,>=Latex,line cap=round]
+  \draw[red,very thick] (0,0)--(0,2.8)--(4.0,2.8);
+  \draw[gray,very thick] (0,-.1) rectangle (.8,.25); \node[below] at (.4,-.15) {$A$};
+  \draw[gray,very thick] (3.0,2.55) rectangle (3.8,3.05); \node[above] at (3.4,3.05) {$O$};
+  \draw[gray,very thick] (3.0,-.1) rectangle (3.8,.25); \node[below] at (3.4,-.15) {$B$};
+  \draw[black,very thick] (3.4,.25)--(3.4,2.55);
+  \node[left] at (0,2.9) {0-corps}; \node[left] at (3.3,1.6) {1-table}; \node[above] at (1.7,.15) {2-vis};
+  \draw[->] (4.7,.4)--(6.2,.4) node[right] {$\vec i$}; \draw[->] (4.7,.4)--(4.7,1.9) node[above] {$\vec j$};
+\end{tikzpicture}}
+
+\begin{document}
+\InterroHeader{Modélisation des mécanismes}{10}
+
+\begin{minipage}[t]{.49\linewidth}
+\textbf{Butée réglable}
+\begin{center}\buteeReglable\end{center}
+\question{Réaliser le schéma cinématique de la butée réglable.}{3}
+\begin{reponse}[72mm]\end{reponse}
+\end{minipage}\hfill
+\begin{minipage}[t]{.48\linewidth}
+\question{Quels sont les trois types de contact direct qu'il peut y avoir entre deux solides ?}{1}
+\begin{reponse}[30mm]\end{reponse}
+
+\question{Donner la relation qui relie le pas $p$ d'un dispositif vis--écrou, la position $y(t)$ et la position angulaire $\beta(t)$.}{1}
+\begin{reponse}[28mm]\end{reponse}
+
+\question{Donner le graphe de liaisons du schéma cinématique ci-dessous.}{3}
+\begin{center}\schemaSpatial\end{center}
+\begin{reponse}[70mm]\end{reponse}
+\end{minipage}
+
+\newpage
+\InterroHeader{Modélisation des mécanismes}{10}
+\question{Donner les torseurs cinématiques $\{\mathcal V_{2/1}\}_B$, $\{\mathcal V_{2/0}\}_A$ et $\{\mathcal V_{1/0}\}_O$ associés aux trois liaisons du schéma cinématique ci-dessous.}{3}
+
+\begin{minipage}[t]{.43\linewidth}
+\begin{center}\schemaTorseurs\end{center}
+\end{minipage}\hfill
+\begin{minipage}[t]{.54\linewidth}
+\begin{reponse}[78mm]\end{reponse}
+\end{minipage}
+
+\end{document}
