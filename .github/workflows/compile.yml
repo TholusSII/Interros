@@ -65,6 +65,9 @@ jobs:
           - name: I12 Filtrage
             directory: interros/I12_Filtrage
             file: I12_Filtrage.tex
+          - name: I14 Introduction aux systèmes asservis
+            directory: interros/I14_IntroductionSA
+            file: I14_IntroductionSA.tex
 
     steps:
       - name: Récupérer le dépôt
