@@ -89,6 +89,9 @@ jobs:
           - name: IB05 Torseurs
             directory: interros/IB05_Torseurs
             file: IB05_Torseurs.tex
+          - name: IB07 Schéma cinématique
+            directory: interros/IB07_SchemaCinematique
+            file: IB07_SchemaCinematique.tex
 
     steps:
       - name: Récupérer le dépôt
