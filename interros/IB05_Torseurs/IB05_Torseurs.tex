@@ -1,0 +1,76 @@
+\documentclass[10pt]{article}
+\input{../../framework/interros-framework.tex}
+\setlength{\parindent}{0pt}
+\usetikzlibrary{arrows.meta,calc,angles,quotes}
+
+\newcommand{\repereTorseurs}{%
+\begin{tikzpicture}[scale=.78,>=Latex,line cap=round]
+  \coordinate (O) at (0,0);
+  \draw[->,thick] (O)--(3.5,0) node[right] {$\vec z_1$};
+  \draw[->,thick] (O)--(.65,3.2) node[above] {$\vec x_1$};
+  \draw[->,thick] (O)--(-1.15,2.9) node[above left] {$\vec x_2$};
+  \draw[->,thick] (O)--(3.1,.85) node[right] {$\vec z_2$};
+  \draw[very thick] (O) circle (2pt);
+  \node[below left] at (O) {$\vec y_1=\vec y_2$};
+  \draw[->] (0.42,1.95) arc[start angle=78,end angle=112,radius=1.9] node[midway,above] {$\theta_2$};
+  \draw[->] (2.05,.05) arc[start angle=0,end angle=16,radius=2.05] node[midway,right] {$\theta_2$};
+\end{tikzpicture}}
+
+\begin{document}
+\InterroHeader{Outils mathématiques}{10}
+
+\question{Comment se nomment les deux vecteurs qui constituent un torseur ?}{1}
+\begin{reponse}[15mm]\end{reponse}
+
+\question{Quelles précautions faut-il prendre avant d'additionner deux torseurs ?}{1}
+\begin{reponse}[15mm]\end{reponse}
+
+\question{Rappeler la formule qui permet de déplacer au point $P$ le moment d'un torseur exprimé au point $R$.}{1}
+\begin{reponse}[18mm]\end{reponse}
+
+\question{Comment s'appelle le produit de deux torseurs ?}{1}
+\begin{reponse}[14mm]\end{reponse}
+
+\question{Le résultat du comoment de deux torseurs est-il un torseur, un vecteur ou un réel ? Justifier.}{1}
+\begin{reponse}[18mm]\end{reponse}
+
+\textbf{Exercice :}
+
+\begin{minipage}[t]{.62\linewidth}
+On considère les deux torseurs suivants :
+\[
+\{\tau_1\}_P=
+\left\{\begin{array}{c}
+ b\,\vec x_1-c\,\vec y_1\\[1mm]
+ \vec 0
+\end{array}\right\}_P
+\qquad
+\{\tau_2\}_Q=
+\left\{\begin{array}{cc}
+ e & d\\
+ 0 & 0\\
+ 0 & f
+\end{array}\right\}_{Q,(\vec x_2,\vec y_2,\vec z_2)}
+\]
+avec
+\[
+\overrightarrow{PQ}=l\,\vec x_1-m\,\vec x_2.
+\]
+\end{minipage}\hfill
+\begin{minipage}[t]{.34\linewidth}\centering
+\repereTorseurs
+\end{minipage}
+
+\question{Écrire $\{\tau_2\}$ en ligne.}{1}
+\begin{reponse}[27mm]\end{reponse}
+
+\question{Déplacer $\{\tau_2\}$ au point $P$.}{2}
+\begin{reponse}[42mm]\end{reponse}
+
+\newpage
+\InterroHeader{Outils mathématiques}{10}
+
+\question{Calculer $\{\tau_1\}\otimes\{\tau_2\}$ au point $P$.}{2}
+\begin{reponse}[105mm]\end{reponse}
+
+\end{document}
