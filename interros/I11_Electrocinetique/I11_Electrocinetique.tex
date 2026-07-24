@@ -1,0 +1,118 @@
+\documentclass[10pt]{article}
+\input{../../framework/interros-framework.tex}
+\setlength{\parindent}{0pt}
+\usetikzlibrary{circuits.ee.IEC,positioning,arrows.meta}
+
+\tikzset{every circuit symbol/.style={draw,thick}, circuit declare symbol=resistance,
+  set resistance graphic={draw,minimum width=7mm,minimum height=2.6mm}}
+
+\newcommand{\circuitcondensateur}{%
+\begin{tikzpicture}[>=Latex,scale=.9]
+  \draw (0,0)--(0,0.65);\draw (-.38,.65)--(.38,.65);\draw (-.38,.9)--(.38,.9);\draw (0,.9)--(0,1.6);
+  \draw[->,red,thick] (-.8,1.55)--(-.8,.95) node[midway,left] {$i(t)$};
+  \draw[->,blue!70!black,thick] (.8,.15)--(.8,1.5) node[midway,right] {$u(t)$};
+  \node[left] at (-.05,.78) {$C$};
+\end{tikzpicture}}
+
+\newcommand{\circuitqfive}{%
+\begin{tikzpicture}[scale=.72]
+  \draw (0,0)--(6,0) node[right] {$B$}; \draw (0,3)--(6,3) node[right] {$A$};
+  \foreach \x/\r/\e in {1/R_1/E_1,3/R_2/E_2}{
+    \draw (\x,3)--(\x,2.4);\draw (\x-.18,2.4) rectangle (\x+.18,1.6);\node[right] at (\x+.2,2) {$\r$};
+    \draw (\x,1.6)--(\x,.85);\draw (\x-.28,.85)--(\x+.28,.85);\draw (\x-.17,.62)--(\x+.17,.62);\draw (\x,.62)--(\x,0);\node[right] at (\x+.25,.72) {$\e$};}
+  \draw (5,3)--(5,2.4);\draw (4.82,2.4) rectangle (5.18,1.6);\node[right] at (5.2,2) {$R_3$};\draw (5,1.6)--(5,0);
+\end{tikzpicture}}
+
+\newcommand{\circuitqsix}{%
+\begin{tikzpicture}[scale=.72]
+  \node[left] at (0,2) {$A$};\node[left] at (0,0) {$B$};
+  \draw (0,2)--(.7,2);\draw (.7,1.82) rectangle (1.8,2.18);\node[above] at (1.25,2.2) {$R$};\draw (1.8,2)--(4.8,2);\draw (0,0)--(4.8,0);
+  \foreach \x in {2.2,3.3,4.4}{\draw (\x,2)--(\x,1.55);\draw (\x-.18,1.55) rectangle (\x+.18,.45);\node[left] at (\x-.2,1) {$R$};\draw (\x,.45)--(\x,0);}
+\end{tikzpicture}}
+
+\newcommand{\circuitqseven}{%
+\begin{tikzpicture}[scale=.68,>=Latex]
+  \draw (0,0)--(5,0);\draw (0,0)--(0,.55);\draw (0,2.45)--(0,3)--(.8,3);
+  \draw (0,.55) circle (.42);\draw[->] (0,.1)--(0,2.85) node[midway,left] {$E$};
+  \draw (.8,2.82) rectangle (2,3.18);\node[above] at (1.4,3.18) {$R_1$};\draw (2,3)--(5,3);
+  \draw (2.5,3)--(2.5,2.55);\draw (2.32,2.55) rectangle (2.68,.45);\node[left] at (2.28,1.5) {$R_2$};\draw (2.5,.45)--(2.5,0);
+  \draw (3.35,2.82) rectangle (4.2,3.18);\node[above] at (3.78,3.18) {$R$};
+  \draw (5,3)--(5,2.55);\draw (4.82,2.55) rectangle (5.18,.45);\node[right] at (5.2,1.5) {$R$};\draw (5,.45)--(5,0);
+  \draw[->] (2.9,.55)--(2.9,2.45) node[midway,right] {$U_2$};
+  \draw[->] (1.9,2.55)--(.9,2.55) node[midway,below] {$U_1$};
+\end{tikzpicture}}
+
+\newcommand{\circuitqeight}{%
+\begin{tikzpicture}[scale=.72,>=Latex]
+  \draw (0,0)--(5,0);\draw (0,3)--(5,3);
+  \draw (0,0)--(0,.85);\draw (0,2.15)--(0,3);\draw (0,1.5) circle (.55);\draw (-.35,1.5)--(.35,1.5);
+  \draw[->,thick] (-.8,.4)--(-.8,2.6) node[above] {$i=1{,}4\,\mathrm{A}$};
+  \foreach \x/\r in {1.5/R_1,3/R_2,4.5/R_3}{\draw (\x,3)--(\x,2.5);\draw (\x-.22,2.5) rectangle (\x+.22,.5);\node at (\x,1.5) {$\r$};\draw (\x,.5)--(\x,0);}
+  \draw[->,thick] (1.5,3.2)--(1.5,2.7) node[right] {$i_1$};
+\end{tikzpicture}}
+
+\newcommand{\spectrequest}{%
+\begin{tikzpicture}[x=.0015cm,y=.35cm,>=Latex]
+  \draw[->] (0,0)--(5400,0) node[right] {$f\,(\mathrm{Hz})$};\draw[->] (0,0)--(0,14) node[above] {$G\,(\mathrm{V})$};
+  \foreach \x in {0,1000,...,5000}{\draw (\x,.15)--(\x,-.15) node[below] {\scriptsize\x};}
+  \foreach \y in {0,2,...,14}{\draw (60,\y)--(-60,\y) node[left] {\scriptsize\y};\draw[gray!40] (0,\y)--(5200,\y);}
+  \foreach \x/\y in {500/12.5,1500/4,2400/1.2,3400/3,4400/3.8}{\draw[blue!70!black,very thick] (\x,0)--(\x,\y);}
+\end{tikzpicture}}
+
+\begin{document}
+\InterroHeader{Outils et lois de l'électrocinétique}{20}
+
+\question{Donner au moins cinq critères permettant de choisir un capteur.}{1}
+\begin{reponse}[20mm]\end{reponse}
+\question{Donner des solutions technologiques de capteurs permettant de mesurer une masse et une position angulaire.}{1}
+\begin{reponse}[20mm]\end{reponse}
+\question{Donner la définition mathématique du courant électrique en précisant les unités.}{1}
+\begin{reponse}[18mm]\end{reponse}
+
+\question{Donner la convention du dipôle suivant ainsi que sa relation courant--tension.}{1}
+\begin{center}\begin{minipage}{.25\linewidth}\centering\circuitcondensateur\end{minipage}\hfill\begin{minipage}{.68\linewidth}\begin{reponse}[25mm]\end{reponse}\end{minipage}\end{center}
+
+\question{Déterminer l'expression du potentiel $V_A$.}{1}
+\begin{center}\begin{minipage}{.35\linewidth}\centering\circuitqfive\end{minipage}\hfill\begin{minipage}{.60\linewidth}\begin{reponse}[36mm]\end{reponse}\end{minipage}\end{center}
+
+\question{Déterminer la résistance équivalente entre $A$ et $B$.}{1}
+\begin{center}\begin{minipage}{.38\linewidth}\centering\circuitqsix\end{minipage}\hfill\begin{minipage}{.57\linewidth}\begin{reponse}[28mm]\end{reponse}\end{minipage}\end{center}
+
+\question{Déterminer l'expression de la tension $U_2$.}{1}
+\begin{center}\begin{minipage}{.42\linewidth}\centering\circuitqseven\end{minipage}\hfill\begin{minipage}{.53\linewidth}\begin{reponse}[32mm]\end{reponse}\end{minipage}\end{center}
+
+\newpage
+\InterroHeader{Outils et lois de l'électrocinétique}{20}
+\question{Déterminer l'expression du courant $i_1$.}{1}
+\begin{center}\begin{minipage}{.38\linewidth}\centering\circuitqeight\end{minipage}\hfill\begin{minipage}{.57\linewidth}\begin{reponse}[38mm]\end{reponse}\end{minipage}\end{center}
+
+\question{Quelle est la proposition correcte ?}{1}
+\begin{tabular}{|p{.47\linewidth}|p{.47\linewidth}|}\hline
+A) En convention récepteur, $u(t)=-R\,i(t)$. & D) En convention récepteur, $u(t)=R\,i(t)$.\\\hline
+B) En convention générateur, $u(t)=R\,i(t)$. & E) En convention récepteur, $u(t)=R\,i^2(t)$.\\\hline
+C) En convention récepteur, $u(t)=i(t)/R$. & \\ \hline
+\end{tabular}
+
+\question{La résistance $R_{AB}$ vue aux bornes de $A$ et $B$ vaut :}{1}
+\begin{center}
+\begin{tikzpicture}[scale=.68]\node[left] at (0,2) {$A$};\node[left] at (0,0) {$B$};\draw (0,2)--(1,2);\draw (1,2)--(1,1.6);\draw (.82,1.6) rectangle (1.18,.4);\node[right] at (1.2,1) {$2R$};\draw (1,.4)--(1,0);\draw (1,2)--(2,2);\draw (2,1.82) rectangle (3,2.18);\node[above] at (2.5,2.2) {$R$};\draw (3,2)--(3,1.6);\draw (2.82,1.6) rectangle (3.18,.4);\node[right] at (3.2,1) {$R$};\draw (3,.4)--(3,0);\draw (0,0)--(3,0);\end{tikzpicture}
+\end{center}
+\begin{tabular}{|c|c|c|c|c|}\hline A) $R$ & B) $2R$ & C) $4R$ & D) $R/2$ & E) $3R/2$\\\hline\end{tabular}
+
+\question{Pour le diviseur de tension représenté, quelle expression est correcte ?}{1}
+\begin{center}\begin{tikzpicture}[scale=.7,>=Latex]\draw (0,0)--(4,0);\draw (0,2)--(.8,2);\draw (.8,1.82) rectangle (2,2.18);\node[above] at (1.4,2.2) {$R_1$};\draw (2,2)--(4,2);\draw (3,2)--(3,1.6);\draw (2.82,1.6) rectangle (3.18,.4);\node[right] at (3.2,1) {$R_2$};\draw (3,.4)--(3,0);\draw[->] (0,.2)--(0,1.8) node[midway,left] {$V_E$};\draw[->] (4,.2)--(4,1.8) node[midway,right] {$V_S$};\end{tikzpicture}\end{center}
+\begin{tabular}{|c|c|c|c|c|}\hline A) $V_S=V_E$ & B) $V_S=V_E\frac{R_1}{R_1+R_2}$ & C) $V_S=\frac{V_E}{R_1+R_2}$ & D) $V_S=V_E\frac{R_2}{R_1+R_2}$ & E) $V_S=V_E R_1R_2$\\\hline\end{tabular}
+
+\question{Pour le montage suivant, quelle expression est correcte ?}{1}
+\begin{center}\begin{tikzpicture}[scale=.65,>=Latex]\draw (0,0)--(5,0);\draw (0,2)--(.8,2);\draw (.8,1.82) rectangle (2,2.18);\node[above] at (1.4,2.2) {$R$};\draw (2,2)--(5,2);\foreach \x in {2.8,4.6}{\draw (\x,2)--(\x,1.6);\draw (\x-.18,1.6) rectangle (\x+.18,.4);\node[right] at (\x+.2,1) {$R$};\draw (\x,.4)--(\x,0);}\draw[->] (0,.2)--(0,1.8) node[midway,left] {$V_E$};\draw[->] (3.7,.2)--(3.7,1.8) node[midway,right] {$V_S$};\end{tikzpicture}\end{center}
+\begin{tabular}{|c|c|c|c|c|}\hline A) $V_S=V_E$ & B) $V_S=V_E/2$ & C) $V_S=V_E/3$ & D) $V_S=V_E/4$ & E) $V_S=2V_E$\\\hline\end{tabular}
+
+\newpage
+\InterroHeader{Outils et lois de l'électrocinétique}{20}
+\question{Donner l'expression sous forme de somme de sinusoïdes du signal $s(t)$ dont le spectre est donné ci-contre.}{2}
+\begin{center}\begin{minipage}{.53\linewidth}\begin{reponse}[52mm]\end{reponse}\end{minipage}\hfill\begin{minipage}{.43\linewidth}\centering\spectrequest\end{minipage}\end{center}
+
+\question{Donner le spectre d'amplitude du signal suivant :
+\[i(t)=8+\cos(0{,}02t-0{,}3)+0{,}4\cos(0{,}08t+0{,}5)-0{,}3\cos(0{,}12t-0{,}3).\]}{2}
+\begin{reponse}[80mm]\end{reponse}
+\end{document}
