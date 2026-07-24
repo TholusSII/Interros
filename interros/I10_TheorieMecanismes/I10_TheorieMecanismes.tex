@@ -1,0 +1,162 @@
+\documentclass[10pt]{article}
+\input{../../framework/interros-framework.tex}
+\setlength{\parindent}{0pt}
+
+\newcommand{\odometre}{%
+\begin{tikzpicture}[scale=.85,>=Latex]
+  \draw[thick] (-.8,0)--(8.4,0);
+  \node[draw,minimum width=1.4cm,minimum height=1cm] at (0,1.45) {Véhicule\\$S_1$};
+  \draw[thick] (.7,1.45)--(1.45,1.45);
+  \coordinate (B) at (2.35,1.45);
+  \coordinate (C) at (4.5,.7);
+  \coordinate (I) at (4.5,0);
+  \draw[line width=4pt] (B)--(C);
+  \draw[fill=white,thick] (B) circle (.12) node[above right] {$B$};
+  \draw[fill=white,thick] (C) circle (.12) node[above right] {$C$};
+  \draw[thick] (C) circle (.72);
+  \node[right] at (5.25,.55) {$S_4$};
+  \node[above] at (3.15,1.55) {$S_3$};
+  \node[above left] at (2.1,1.7) {$S_2$};
+  \draw[->] (B)--++(110:1.25) node[above] {$\vec y_2$};
+  \draw[->] (B)--++(90:1.35) node[above] {$\vec z_1$};
+  \draw[->] (C)--++(70:1.05) node[above] {$\vec y_4$};
+  \draw[<->] (2.55,1.75)--(4.7,2.55) node[midway,above,sloped] {$\lambda(t)$};
+  \draw[<->] (1.1,0)--(1.1,1.45) node[midway,left] {$h$};
+  \draw[->] (1.45,1.45) arc[start angle=180,end angle=145,radius=.9];
+  \node at (1.55,2.1) {$\theta(t)$};
+  \draw[->] (C)+(125:.95) arc[start angle=125,end angle=70,radius=.95];
+  \node at (4.7,1.78) {$\varphi(t)$};
+  \node[below] at (I) {$I$};
+  \draw[->] (-.65,.25)--++(1.1,0) node[right] {$\vec y_1$};
+  \node[right] at (5.35,.05) {Rayon roue 4 : $r$};
+\end{tikzpicture}}
+
+\newcommand{\trapeze}{%
+\begin{tikzpicture}[x=.9cm,y=.9cm,>=Latex]
+  \draw[->] (0,0)--(7,0) node[right] {$t$};
+  \draw[->] (0,0)--(0,2.2) node[above] {$\omega_{\mathrm{cons}}(t)$};
+  \draw[thick] (0,0)--(2,1.55)--(4.7,1.55)--(6.6,0);
+  \draw[dashed] (2,0)--(2,1.55) (4.7,0)--(4.7,1.55) (0,1.55)--(2,1.55);
+  \node[below] at (2,0) {$t_1$}; \node[below] at (4.7,0) {$t_2$}; \node[below] at (6.6,0) {$t_3$};
+  \node[left] at (0,1.55) {$\omega_{\max}$};
+\end{tikzpicture}}
+
+\newcommand{\fixations}{%
+\begin{tikzpicture}[scale=.7]
+  \draw[thick] (0,0) rectangle (2.1,2.1);
+  \filldraw (0.28,1.82) circle (.07); \filldraw (1.82,.22) circle (.07);
+  \node[below] at (1.05,-.2) {1 vis + 1 clou};
+  \begin{scope}[xshift=4cm,rotate=45]
+    \draw[thick] (0,0) rectangle (1.7,1.7); \filldraw (.25,1.45) circle (.07);
+  \end{scope}
+  \node[below] at (5.2,-.2) {1 seule vis};
+  \begin{scope}[xshift=8cm]
+    \draw[thick] (0,0) rectangle (2.1,2.1);
+    \foreach \p in {(.28,1.82),(1.82,1.82),(1.82,.28)} \filldraw \p circle (.07);
+  \end{scope}
+  \node[below] at (9.05,-.2) {3 vis};
+\end{tikzpicture}}
+
+\newcommand{\verin}{%
+\begin{tikzpicture}[scale=.75,>=Latex]
+  \draw[thick] (0,0)--(0,2.5)--(6.2,2.5)--(6.2,1.5);
+  \draw[thick] (.5,.45) rectangle (2.35,.85);
+  \draw[thick] (2.35,.65)--(4.4,.65);
+  \draw[thick] (2.7,.35)--(4.1,.95);
+  \draw[thick] (4.4,.45) rectangle (5.3,.85);
+  \node[below] at (1.4,.35) {Arbre-vis 2};
+  \node[above] at (4.75,.9) {Écrou-tige 3};
+  \node[below] at (3.1,2.35) {Bâti 1};
+\end{tikzpicture}}
+
+\newcommand{\grapheliaisons}{%
+\begin{tikzpicture}[>=Latex]
+  \node[draw,circle] (n1) at (0,0) {1};
+  \node[draw,circle] (n2) at (-1.5,1.4) {2};
+  \node[draw,circle] (n3) at (1.5,1.4) {3};
+  \draw (n1)--node[left] {L1}(n2)--node[above] {L3}(n3)--node[right] {L2}(n1);
+\end{tikzpicture}}
+
+\newcommand{\bielle}[1]{%
+\begin{tikzpicture}[scale=.75]
+  \coordinate (A) at (0,0); \coordinate (B) at (1.8,2.1); \coordinate (C) at (3.8,.15);
+  \draw[line width=3pt] (A)--(B); \draw[line width=3pt] (B)--(C);
+  \foreach \P in {A,B,C} \draw[fill=white,thick] (\P) circle (.13);
+  \draw[thick] (-.45,-.25)--(.45,-.25); \foreach \x in {-.35,-.15,.05,.25,.45} \draw (\x,-.25)--++(-.15,-.18);
+  \draw[thick] (C)--++(1,0); \draw[thick] (4.25,-.15) rectangle (4.9,.45);
+  \node at (.75,1.15) {2}; \node at (2.85,1.2) {3}; \node at (4.55,.65) {4}; \node at (0,-.65) {1};
+  \node[below] at (2.4,-.75) {#1};
+\end{tikzpicture}}
+
+\begin{document}
+\InterroHeader{Cinématique / Théorie des mécanismes}{10}
+
+\textbf{Odomètre}
+\begin{center}\odometre\end{center}
+Dans le mouvement de translation rectiligne considéré, $\vec V_{I,1/0}=\dot y\,\vec y_1$.
+
+\question{Exprimer la condition de roulement sans glissement. Donner alors la relation liant les différents paramètres de mouvement.}{2}
+\begin{reponse}[38mm]\end{reponse}
+
+\textbf{Simulateur de vol}
+
+Afin d’éviter des sollicitations mécaniques brutales, la consigne de vitesse de rotation du moteur suit une loi trapézoïdale.
+\begin{center}\trapeze\end{center}
+
+\question{En supposant que $\omega_{m/0}(t)$ suit parfaitement la consigne, déterminer l’expression de la position angulaire $\theta_m(t)$ en fonction de $\omega_{\max}$, $t_1$, $t_2$ et $t_3$.}{1}
+\begin{reponse}[42mm]\end{reponse}
+
+\newpage
+\InterroHeader{Cinématique / Théorie des mécanismes}{10}
+
+\question{Compléter le tableau suivant.}{1}
+\begin{center}
+\begin{tabular}{|p{.28\linewidth}|p{.28\linewidth}|p{.28\linewidth}|}\hline
+Mécanisme & Isostatique & Hyperstatique\\\hline
+Made in & & \\\hline
+\end{tabular}
+\end{center}
+
+\question{Compléter l’égalité de dualité cinématique-statique : quelle que soit la liaison, $I_c+I_s=\ldots$}{1}
+\begin{reponse}[12mm]\end{reponse}
+
+\question{Pour cette plaque fixée sur un mur, préciser si chaque fixation est hypostatique, isostatique ou hyperstatique.}{2}
+\begin{center}\fixations\end{center}
+\begin{center}
+\begin{tabular}{|p{.29\linewidth}|p{.29\linewidth}|p{.29\linewidth}|}\hline
+& & \\\hline
+\end{tabular}
+\end{center}
+
+Soit un vérin électrique décrit ci-dessous.
+\begin{center}
+\begin{minipage}{.48\linewidth}\centering\verin\end{minipage}\hfill
+\begin{minipage}{.28\linewidth}\centering\grapheliaisons\end{minipage}
+\end{center}
+
+\question{Donner le nom des liaisons L1, L2 et L3. Préciser leur nombre d’inconnues statiques $I_s$ et cinématiques $I_c$.}{2}
+\begin{center}
+\begin{tabular}{|p{.18\linewidth}|p{.23\linewidth}|p{.23\linewidth}|p{.23\linewidth}|}\hline
+Liaison & L1 & L2 & L3\\\hline
+Nom & & & \\\hline
+$I_c=$ & & & \\\hline
+$I_s=$ & & & \\\hline
+\end{tabular}
+\end{center}
+
+\question{Compléter le tableau ci-dessous.}{2}
+\begin{center}
+\begin{tabular}{|p{.18\linewidth}|p{.18\linewidth}|p{.18\linewidth}|p{.18\linewidth}|p{.18\linewidth}|}\hline
+Paramètre & $I_s$ & $N_P$ & $m$ & $\gamma$\\\hline
+Nom & & & & \\\hline
+\end{tabular}
+\end{center}
+
+\question{Calculer le degré d’hyperstatisme des deux modélisations du système bielle-manivelle ci-dessous et conclure.}{2}
+\begin{center}
+\begin{minipage}{.46\linewidth}\centering\bielle{Modélisation 1}\end{minipage}\hfill
+\begin{minipage}{.46\linewidth}\centering\bielle{Modélisation 2}\end{minipage}
+\end{center}
+\begin{reponse}[28mm]\end{reponse}
+
+\end{document}
