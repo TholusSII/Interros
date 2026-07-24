@@ -86,6 +86,9 @@ jobs:
           - name: IB04 Loi entrée-sortie
             directory: interros/IB04_LoiEntreeSortie
             file: IB04_LoiEntreeSortie.tex
+          - name: IB05 Torseurs
+            directory: interros/IB05_Torseurs
+            file: IB05_Torseurs.tex
 
     steps:
       - name: Récupérer le dépôt
