@@ -62,6 +62,9 @@ jobs:
           - name: I11 Électrocinétique
             directory: interros/I11_Electrocinetique
             file: I11_Electrocinetique.tex
+          - name: I12 Filtrage
+            directory: interros/I12_Filtrage
+            file: I12_Filtrage.tex
 
     steps:
       - name: Récupérer le dépôt
