@@ -44,6 +44,9 @@ jobs:
           - name: I05 Torseurs
             directory: interros/I05_Torseurs
             file: I05_Torseurs.tex
+          - name: I08 Loi entrée-sortie
+            directory: interros/I08_LoiEntreeSortie
+            file: I08_LoiEntreeSortie.tex
 
     steps:
       - name: Récupérer le dépôt
