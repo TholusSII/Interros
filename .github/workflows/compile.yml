@@ -17,6 +17,9 @@ on:
       - 'Makefile'
   workflow_dispatch:
 
+permissions:
+  contents: write
+
 jobs:
   compile:
     name: ${{ matrix.name }}
@@ -90,6 +93,14 @@ jobs:
           latexmk -C '${{ matrix.file }}' || true
           latexmk -pdf -interaction=nonstopmode -halt-on-error -file-line-error '${{ matrix.file }}' 2>&1 | tee compilation-ci.log
 
+      - name: Préparer le PDF pour publication
+        if: success()
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p "publication/${{ matrix.directory }}"
+          cp "${{ matrix.directory }}/${{ matrix.file%.tex }}.pdf" "publication/${{ matrix.directory }}/"
+
       - name: Afficher les erreurs LaTeX
         if: failure()
         shell: bash
@@ -105,7 +116,52 @@ jobs:
         with:
           name: ${{ matrix.file }}-resultat
           path: |
+            publication/**
             ${{ matrix.directory }}/*.pdf
             ${{ matrix.directory }}/*.log
           if-no-files-found: warn
           retention-days: 90
+
+  publier-pdf:
+    name: Publier les PDF dans le dépôt
+    if: github.event_name == 'push'
+    needs: compile
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Récupérer le dépôt
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: true
+
+      - name: Télécharger les PDF compilés
+        uses: actions/download-artifact@v4
+        with:
+          pattern: '*-resultat'
+          path: resultats
+          merge-multiple: true
+
+      - name: Copier les PDF dans les dossiers des interros
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -d resultats/publication/interros
+          cp -R resultats/publication/interros/. interros/
+          find interros -name '*.pdf' -type f -print
+
+      - name: Committer et pousser les PDF
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add interros
+
+          if git diff --cached --quiet; then
+            echo 'Les PDF sont déjà à jour.'
+            exit 0
+          fi
+
+          git commit -m 'Mettre à jour automatiquement les PDF des interros'
+          git push
