@@ -50,6 +50,9 @@ jobs:
           - name: I07 Engrenages
             directory: interros/I07_Engrenages
             file: I07_Engrenages.tex
+          - name: I08 Cinématique du solide
+            directory: interros/I08_Cinematique
+            file: I08_Cinematique.tex
           - name: I08 Loi entrée-sortie
             directory: interros/I08_LoiEntreeSortie
             file: I08_LoiEntreeSortie.tex
