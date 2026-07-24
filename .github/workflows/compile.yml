@@ -68,6 +68,9 @@ jobs:
           - name: I14 Introduction aux systèmes asservis
             directory: interros/I14_IntroductionSA
             file: I14_IntroductionSA.tex
+          - name: I15 Modélisation des systèmes asservis
+            directory: interros/I15_ModelisationSA
+            file: I15_ModelisationSA.tex
 
     steps:
       - name: Récupérer le dépôt
