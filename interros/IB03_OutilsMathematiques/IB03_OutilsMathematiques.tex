@@ -1,0 +1,85 @@
+\documentclass[10pt]{article}
+\input{../../framework/interros-framework.tex}
+\setlength{\parindent}{0pt}
+
+\newcommand{\schemaVisDeroulee}{%
+\begin{tikzpicture}[x=0.75cm,y=0.75cm,>=latex]
+  \fill[cyan!45] (0,0)--(8,0)--(8,2.4)--cycle;
+  \draw[thick] (0,0)--(8,0)--(8,2.4)--cycle;
+  \draw[<->] (0,-0.45)--node[below] {$2\pi R$} (8,-0.45);
+  \draw[<->] (0,-0.05)--node[above] {$\theta R$} (4.6,-0.05);
+  \draw[thick] (4.6,0)--(4.6,1.38);
+  \node[right] at (4.6,0.7) {$x$};
+  \draw[<->] (8.55,0)--node[right] {$p$} (8.55,2.4);
+\end{tikzpicture}}
+
+\newcommand{\schemaMars}{%
+\begin{tikzpicture}[scale=0.82,>=latex,line cap=round,line join=round]
+  \coordinate (Oone) at (7.4,0);
+  \coordinate (Otwo) at (3.8,0.25);
+  \coordinate (Othree) at (1.2,0);
+  \coordinate (L) at (4.9,3.2);
+  \coordinate (M) at (2.4,2.0);
+  \draw[green!60!black,very thick] (Oone)--node[right] {$L_1$} (L)--node[above left] {$L_2$} (M);
+  \draw[blue!75!black,very thick] (M)--node[left] {$L_3$} (Othree);
+  \draw[blue!75!black,very thick] (M)--node[right] {$L_4$} (Otwo);
+  \draw[green!60!black,thick,dashed] (M)--node[above] {$L_5$} (Oone);
+  \draw[blue!75!black,thick,dashed] (Othree)--node[above] {$L_6$} (Otwo);
+  \foreach \P/\r/\lab in {Oone/0.48/$R_1$,Otwo/0.42/$R_2$,Othree/0.50/$R_3$}{
+    \draw[red,very thick] (\P) circle (\r);
+    \fill (\P) circle (1.5pt);
+    \node[below=2pt] at (\P) {\lab};
+  }
+  \fill (L) circle (2pt) node[above right] {$L$};
+  \fill (M) circle (2pt) node[left] {$M$};
+  \draw (4.45,2.8) arc[start angle=205,end angle=315,radius=0.52];
+  \node at (4.8,2.48) {$\alpha_1$};
+  \draw (2.08,1.55) arc[start angle=270,end angle=345,radius=0.45];
+  \node at (2.55,1.47) {$\alpha_2$};
+\end{tikzpicture}}
+
+\begin{document}
+\InterroHeader{Outils mathématiques}{10}
+
+\question{Que vaut la pression, en bar, exercée sur un piston de surface $10\,\mathrm{cm^2}$ d'un vérin développant un effort de $100\,\mathrm{daN}$ ?}{2}
+\begin{reponse}[25mm]\end{reponse}
+
+\question{Convertir $3000\,\mathrm{tr\,min^{-1}}$ en $\mathrm{rad\,s^{-1}}$.}{1}
+\begin{reponse}[15mm]\end{reponse}
+
+\question{Convertir $100\,\mathrm{tr\,s^{-1}}$ en $\mathrm{rad\,s^{-1}}$.}{1}
+\begin{reponse}[15mm]\end{reponse}
+
+\question{Donner les valeurs suivantes.}{2}
+\[
+\cos^2(\alpha)+\sin^2(\alpha)=\qquad
+\sin\!\left(\frac{\pi}{2}\right)=\qquad
+\cos\!\left(\frac{\pi}{3}\right)=\qquad
+\cos(0)=
+\]
+\begin{reponse}[18mm]\end{reponse}
+
+\question{Donner les valeurs suivantes.}{1,5}
+\[
+\cos\!\left(\frac{\pi}{2}\right)=\qquad
+\sin\!\left(\frac{\pi}{3}\right)=\qquad
+\sin\!\left(\frac{\pi}{6}\right)=
+\]
+\begin{reponse}[18mm]\end{reponse}
+
+\newpage
+\InterroHeader{Outils mathématiques}{10}
+
+Si l'on « déroule » une vis, on obtient le triangle suivant.
+
+\question{Trouver la relation entre $p$, le pas de la vis en mm, $x$, le déplacement en mm, et $\theta$, la position angulaire.}{2}
+\begin{center}\schemaVisDeroulee\end{center}
+\begin{reponse}[28mm]\end{reponse}
+
+Ci-dessous est représentée la modélisation d'un véhicule d'exploration pour Mars.
+
+\question{Donner la relation entre $L_1$, $L_2$, $L_5$ et $\alpha_1$, puis celle entre $L_3$, $L_4$, $L_6$ et $\alpha_2$.}{1,5}
+\begin{center}\schemaMars\end{center}
+\begin{reponse}[35mm]\end{reponse}
+
+\end{document}
