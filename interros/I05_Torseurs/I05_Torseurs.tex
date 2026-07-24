@@ -1,0 +1,82 @@
+\documentclass[10pt]{article}
+\input{../../framework/interros-framework.tex}
+\setlength{\parindent}{0pt}
+
+\newcommand{\figurebases}{%
+\begin{tikzpicture}[scale=0.9,>=Latex]
+  \coordinate (O) at (0,0);
+  \draw[->,thick] (O)--(2.1,0) node[right] {$\vec z_1$};
+  \draw[->,thick] (O)--(0,2.2) node[above] {$\vec x_1$};
+  \draw[->,thick] (O)--(-0.55,2.05) node[above left] {$\vec x_2$};
+  \draw[->,thick] (O)--(1.85,0.65) node[right] {$\vec z_2$};
+  \node[left] at (-0.05,-0.05) {$\vec y_1=\vec y_2$};
+  \draw[->] (0,1.25) arc[start angle=90,end angle=105,radius=1.25];
+  \node at (-0.35,1.22) {$\theta_2$};
+  \draw[->] (1.1,0) arc[start angle=0,end angle=19,radius=1.1];
+  \node at (1.15,0.28) {$\theta_2$};
+  \fill (O) circle (1.3pt);
+\end{tikzpicture}}
+
+\begin{document}
+\InterroHeader{Outils mathématiques}{10}
+
+\question{Comment se nomment les deux vecteurs qui constituent un torseur ?}{1}
+\begin{reponse}[18mm]\end{reponse}
+
+\question{Quelles précautions faut-il prendre avant d'additionner deux torseurs ?}{1}
+\begin{reponse}[18mm]\end{reponse}
+
+\question{Rappeler la formule qui permet de déplacer au point $P$ le moment d'un torseur exprimé au point $R$.}{1}
+\begin{reponse}[23mm]\end{reponse}
+
+\question{Comment s'appelle le produit de deux torseurs ?}{1}
+\begin{reponse}[16mm]\end{reponse}
+
+\question{Le résultat du comoment de deux torseurs est-il un torseur, un vecteur ou un réel ? Justifier.}{1}
+\begin{reponse}[19mm]\end{reponse}
+
+\textbf{Exercice :}
+
+\begin{center}
+\begin{minipage}{.62\linewidth}
+\[
+\{\tau_1\}
+=\left\{
+\begin{array}{c}
+ b\,\vec{x}_1-c\,\vec{y}_1\\[1mm]
+ \vec{0}
+\end{array}
+\right\}_{P}
+\qquad
+\{\tau_2\}
+=\left\{
+\begin{array}{cc}
+ e & d\\
+ 0 & 0\\
+ 0 & f
+\end{array}
+\right\}_{Q,\,\vec{x}_2,\vec{y}_2,\vec{z}_2}
+\]
+\[
+\overrightarrow{PQ}=l\,\vec{x}_1-m\,\vec{x}_2
+\]
+\end{minipage}\hfill
+\begin{minipage}{.32\linewidth}
+\centering
+\figurebases
+\end{minipage}
+\end{center}
+
+\question{Écrire $\{\tau_2\}$ en ligne.}{1}
+\begin{reponse}[27mm]\end{reponse}
+
+\question{Déplacer $\{\tau_2\}$ au point $P$.}{2}
+\begin{reponse}[44mm]\end{reponse}
+
+\newpage
+\InterroHeader{Outils mathématiques}{10}
+
+\question{Calculer $\{\tau_1\}\otimes\{\tau_2\}$ au point $P$.}{2}
+\begin{reponse}[205mm]\end{reponse}
+
+\end{document}
