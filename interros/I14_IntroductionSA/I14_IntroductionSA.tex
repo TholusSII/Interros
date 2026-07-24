@@ -1,0 +1,66 @@
+\documentclass[10pt]{article}
+\input{../../framework/interros-framework.tex}
+\setlength{\parindent}{0pt}
+
+\newcommand{\reponsepremierordre}{%
+\begin{tikzpicture}[x=0.002cm,y=2.35cm,>=Latex]
+  \draw[step=250,gray!35,very thin] (0,0) grid (4250,1.75);
+  \draw[->] (0,0)--(4400,0) node[right] {$t\,(\mathrm{s})$};
+  \draw[->] (0,0)--(0,1.88) node[above] {$h\,(\mathrm{m})$};
+  \foreach \x in {0,500,...,4000}{\draw (\x,.025)--(\x,-.025) node[below] {\scriptsize \x};}
+  \foreach \y in {0.5,1,1.5,1.75}{\draw (30,\y)--(-30,\y) node[left] {\scriptsize \y};}
+  \draw[very thick,red] (0,.5)--(500,.5)--(500,1.75)--(4250,1.75);
+  \draw[very thick,domain=500:4250,samples=120,smooth,variable=\t]
+    plot ({\t},{1.5-1.0*exp(-(\t-500)/620)});
+  \node[font=\scriptsize] at (2200,1.84) {Évolution de $h$ en fonction du temps};
+\end{tikzpicture}}
+
+\newcommand{\reponsedeuxiemeordre}{%
+\begin{tikzpicture}[x=0.12cm,y=0.18cm,>=Latex]
+  \draw[step=10,gray!30,very thin] (0,0) grid (50,18);
+  \draw[->] (0,0)--(52,0) node[right] {$t$};
+  \draw[->] (0,0)--(0,19) node[above] {$s(t)$};
+  \foreach \x in {0,10,...,50}{\draw (\x,.25)--(\x,-.25) node[below] {\scriptsize \x};}
+  \foreach \y in {2,4,...,18}{\draw (.25,\y)--(-.25,\y) node[left] {\scriptsize \y};}
+  \draw[very thick,red] (0,0)--(3,0)--(3,12)--(50,12);
+  \draw[very thick,blue,domain=3:50,samples=180,smooth,variable=\t]
+    plot ({\t},{10+8*exp(-0.12*(\t-3))*sin(0.72*(\t-3))});
+\end{tikzpicture}}
+
+\begin{document}
+\InterroHeader{Modélisation des systèmes asservis}{20}
+
+\question{Donner les critères permettant d'évaluer un système asservi.}{2}
+\begin{reponse}[25mm]\end{reponse}
+
+\question{Indiquer la différence entre un système bouclé et un système non bouclé.}{2}
+\begin{reponse}[27mm]\end{reponse}
+
+\question{Donner les deux types de systèmes asservis.}{1}
+\begin{reponse}[22mm]\end{reponse}
+
+\question{À partir de la réponse ci-dessous, déterminer le temps de réponse à 5\,\% $t_{r5\%}$ et l'écart statique.}{2}
+
+\begin{center}
+\begin{minipage}[c]{.34\linewidth}
+\begin{reponse}[42mm]\end{reponse}
+\end{minipage}\hfill
+\begin{minipage}[c]{.62\linewidth}
+\centering
+\resizebox{\linewidth}{!}{\reponsepremierordre}
+\end{minipage}
+\end{center}
+
+\question{À partir de la réponse ci-dessous, déterminer le temps de réponse à 5\,\%, le dépassement et l'écart statique.}{3}
+
+\begin{center}
+\begin{minipage}[c]{.34\linewidth}
+\begin{reponse}[42mm]\end{reponse}
+\end{minipage}\hfill
+\begin{minipage}[c]{.62\linewidth}
+\centering
+\resizebox{\linewidth}{!}{\reponsedeuxiemeordre}
+\end{minipage}
+\end{center}
+
+\end{document}
