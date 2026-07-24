@@ -1,0 +1,111 @@
+\documentclass[10pt]{article}
+\input{../../framework/interros-framework.tex}
+\setlength{\parindent}{0pt}
+
+\newcommand{\reducteurCompose}{%
+\begin{tikzpicture}[scale=.78,>=Latex,line cap=round]
+  \draw[thick] (-3.2,0)--(-1.8,0); \draw[thick] (-3.2,-1.1)--(-1.8,-1.1);
+  \draw[thick] (-2.5,-.25)--(-2.5,-.85);
+  \draw[thick] (-2.7,.18)--(-2.3,.18); \draw[thick] (-2.7,-1.28)--(-2.3,-1.28);
+  \node[above] at (-2.5,.18) {$Z_1$}; \node[below] at (-2.5,-1.28) {$Z_2$};
+  \draw[thick] (-1.7,-1.1)--(-1.7,1.15)--(-1.05,1.15);
+  \draw[thick] (-1.9,-1.1)--(-1.5,-1.1); \draw[thick] (-1.9,.55)--(-1.5,.55);
+  \node[left] at (-1.7,.75) {$Z_3$};
+  \draw[thick] (-.95,.1)--(.55,.1); \draw[thick] (-.2,-.2)--(-.2,.4);
+  \node[above] at (-.2,.35) {$Z_4$};
+  \draw[thick] (.45,.1)--(.45,-1.25)--(1.15,-1.25);
+  \draw[thick] (.25,.1)--(.65,.1); \draw[thick] (.25,-.75)--(.65,-.75);
+  \node[left] at (.45,-.95) {$Z_5$};
+  \draw[thick] (1.15,-1.25)--(2.15,-1.25); \draw[thick] (1.65,-1.5)--(1.65,-1.0);
+  \node at (-.1,1.25) {$(0)=\text{bâti}$};
+\end{tikzpicture}}
+
+\newcommand{\roueVis}{%
+\begin{tikzpicture}[scale=.72,>=Latex]
+  \draw[thick] (-2.8,0)--(-.7,0); \draw[thick] (-2.1,-.25)--(-2.1,.25);
+  \draw[thick] (-.7,-.35) rectangle (.55,.35); \node at (-.05,0) {$\times$};
+  \draw[thick] (.55,0)--(1.6,0); \draw[thick] (1.1,-.45)--(1.1,.45);
+  \draw[thick] (1.6,0)--(2.6,0); \draw[thick] (2.15,-.25)--(2.15,.25);
+  \draw[thick] (.05,.35)--(.05,1.45); \draw[thick] (-.2,1.45) circle (.9);
+  \node[above] at (-.2,2.25) {$Z_4$}; \node[below] at (-.05,-.42) {vis 2};
+  \node[above] at (2.15,.3) {$Z_1$}; \node[below] at (1.1,-.5) {$Z_2$};
+\end{tikzpicture}}
+
+\newcommand{\trainEpi}{%
+\begin{tikzpicture}[scale=.76,>=Latex]
+  \draw[thick] (-2.6,0)--(-1.5,0); \draw[thick] (-2.1,-.25)--(-2.1,.25);
+  \draw[thick] (-1.5,-.4)--(-1.5,.4); \node[left] at (-1.55,.55) {$1$};
+  \draw[thick] (-1.5,.35)--(-.8,.35)--(-.8,1.15)--(.15,1.15)--(.15,.35);
+  \node[above] at (-.8,1.2) {$21$}; \node[below] at (.15,.3) {$22$};
+  \draw[very thick] (.15,1.15)--(.75,1.15)--(.75,-.15)--(2.0,-.15);
+  \draw[very thick] (.75,-.15)--(.75,-1.55)--(.25,-1.55);
+  \node[right] at (.82,.75) {$4$}; \node[right] at (.85,-1.3) {$S_b$};
+  \draw[thick] (2.0,-.15)--(2.8,-.15); \draw[thick] (2.55,-.4)--(2.55,.1);
+  \node[right] at (2.85,-.15) {$3$}; \node[below] at (-2.1,-.35) {$0$};
+\end{tikzpicture}}
+
+\newcommand{\axeRobot}{%
+\begin{tikzpicture}[scale=.78,>=Latex,line cap=round]
+  \draw[thick] (-5,-.6) circle (.55); \draw[thick] (-5,-.6)--(-3.1,-.6);
+  \draw[thick] (-3.1,-.6) circle (.55); \draw[thick] (-5,.2)--(-3.1,.2);
+  \node[below] at (-4.7,-1.25) {axe 1}; \node[above] at (-4.1,.3) {courroie 2};
+  \draw[thick] (-3.1,-.6)--(-1.6,-.6); \draw[thick] (-2.35,-.9)--(-2.35,-.3);
+  \node[above] at (-2.35,-.25) {axe 3};
+  \draw[thick] (-1.1,-.6) circle (.8); \node[below] at (-1.1,-1.55) {roue 3'};
+  \draw[thick] (-.3,-.6)--(.55,-.6); \draw[thick] (.15,-.95)--(.15,-.25);
+  \node[above] at (.15,-.2) {tambour 3''};
+  \draw[thick] (-1.1,-1.4)--(-1.1,-2.55); \draw[thick] (-1.35,-2.55) rectangle (-.85,-3.3);
+  \node[left] at (-1.45,-2.9) {coulisseau 4};
+  \draw[thick] (.55,-.6)--(2.3,-.6); \draw[thick] (2.3,-.6) circle (.52);
+  \node[above] at (2.3,.05) {renvoi 6};
+  \draw[thick] (2.3,-1.12)--(2.3,-2.25); \draw[thick] (1.8,-2.25) rectangle (2.8,-3.25);
+  \node[right] at (2.9,-2.75) {contrepoids 7};
+  \draw[thick,->] (4.1,-.2)--(5.0,-.2) node[right] {$x_1$};
+  \draw[thick,->] (4.1,-.2)--(4.1,.75) node[above] {$z_1$};
+  \draw[thick,->] (4.1,-.2)--(4.85,.45) node[above right] {$y_1$};
+\end{tikzpicture}}
+
+\begin{document}
+\InterroHeader{Modélisation des transmetteurs}{10}
+
+\question{Donner la relation entre le diamètre primitif et le nombre de dents pour une roue dentée.}{1}
+\begin{reponse}[17mm]\end{reponse}
+
+\question{Donner la relation entre le pas $p$ et le module $m$.}{1}
+\begin{reponse}[17mm]\end{reponse}
+
+Soit le réducteur suivant : $Z_1=12$ dents, $Z_2=28$ dents, $Z_3=68$ dents, $Z_4=20$ dents et $Z_5=32$ dents.
+
+\begin{center}\reducteurCompose\end{center}
+
+\question{Donner le rapport de réduction $\dfrac{\omega_{5/0}}{\omega_{1/0}}$. Préciser s'il y a inversion ou non du sens de rotation.}{2}
+\begin{reponse}[34mm]\end{reponse}
+
+Soit le réducteur suivant : $Z_1=24$ dents, $Z_2=84$ dents, vis (2) de 4 filets et $Z_4=36$ dents.
+
+\begin{center}\roueVis\end{center}
+
+\question{Donner les rapports de réduction $k=\dfrac{\omega_{1/0}}{\omega_{2/0}}$ et $k_2=\dfrac{\omega_{4/0}}{\omega_{2/0}}$.}{2}
+\begin{reponse}[32mm]\end{reponse}
+
+\begin{center}\trainEpi\end{center}
+
+\question{Identifier les numéros des planétaires, du porte-satellites et des satellites du train épicycloïdal ci-dessus.}{1}
+\begin{reponse}[25mm]\end{reponse}
+
+\newpage
+\InterroHeader{Modélisation des transmetteurs}{10}
+
+Le système étudié est un axe d'élévation d'un robot avec compensation d'effort. L'actionneur est un moto-réducteur à courant continu. Le premier étage de transmission du mouvement se fait par une courroie crantée 2, qui s'enroule sur des poulies de même diamètre pour entraîner l'axe 3. Une roue dentée 3' de diamètre $D_{3'}=38{,}4\,\mathrm{mm}$, solidaire de l'axe 3, engrène avec une crémaillère solidaire d'un coulisseau 4 et de la partie supérieure mobile du robot.
+
+Le bâti 0 est considéré comme fixe. Pour équilibrer la partie supérieure mobile de masse $M=5{,}5\,\mathrm{kg}$, un contrepoids 7 de masse $2M=11\,\mathrm{kg}$ est tiré par un câble 5 qui s'enroule sur un tambour 3'' de diamètre $D_{3''}=19{,}2\,\mathrm{mm}$, solidaire de l'axe 3. La vitesse nominale en sortie du moto-réducteur est $N_{1/0}=60\,\mathrm{tr\,min^{-1}}$.
+
+\begin{center}\axeRobot\end{center}
+
+\question{Déterminer la vitesse $V_{4/0}$ de translation du coulisseau 4 en fonction de la vitesse angulaire $\omega_{1/0}$ de l'axe de sortie du moto-réducteur (expression algébrique signée). Faire l'application numérique.}{2}
+\begin{reponse}[42mm]\end{reponse}
+
+\question{Donner les avantages et les inconvénients d'un réducteur roue et vis sans fin.}{2}
+\begin{reponse}[44mm]\end{reponse}
+
+\end{document}
