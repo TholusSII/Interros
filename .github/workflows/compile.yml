@@ -56,6 +56,9 @@ jobs:
           - name: I08 Loi entrée-sortie
             directory: interros/I08_LoiEntreeSortie
             file: I08_LoiEntreeSortie.tex
+          - name: I10 Théorie des mécanismes
+            directory: interros/I10_TheorieMecanismes
+            file: I10_TheorieMecanismes.tex
 
     steps:
       - name: Récupérer le dépôt
