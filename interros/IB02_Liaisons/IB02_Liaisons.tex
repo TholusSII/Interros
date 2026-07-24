@@ -1,0 +1,74 @@
+\documentclass[10pt]{article}
+\input{../../framework/interros-framework.tex}
+\setlength{\parindent}{0pt}
+
+\newcommand{\repereIBDeux}{%
+\begin{tikzpicture}[>=Latex,thick,scale=.75]
+  \coordinate (O) at (0,0);
+  \draw[->] (O)--(2.1,0) node[right] {$x$};
+  \draw[->] (O)--(0,2.1) node[above] {$y$};
+  \draw[->] (O)--(-.35,-.35) node[below] {$z$};
+  \fill (O) circle (2pt);
+\end{tikzpicture}}
+
+\newcommand{\symbolePivotPlan}{%
+\begin{tikzpicture}[scale=.65,thick]
+  \draw[blue] (0,0) circle (.18);
+  \draw[blue] (-.45,0)--(.45,0);
+  \draw[blue] (.18,.18)--(.42,.75);
+  \draw[red] (-.55,-.18) rectangle (.55,-.48);
+  \draw[red] (0,-.48)--(-.28,-1.05);
+  \node[above left] at (0,.1) {$O$};
+\end{tikzpicture}}
+
+\newcommand{\symboleAppuiPlan}{%
+\begin{tikzpicture}[scale=.65,thick]
+  \draw[blue] (0,-.05)--(0,.7);
+  \draw[blue] (-.45,-.05)--(.45,-.05);
+  \draw[red] (-.55,-.25)--(.55,-.25);
+  \draw[red] (0,-.25)--(0,-.9);
+  \node[right] at (.1,.15) {$Q$};
+\end{tikzpicture}}
+
+\newcommand{\mobilite}[6]{%
+\begin{tabular}{c|c}
+$R$ & $T$\\\hline
+#1 & #2\\
+#3 & #4\\
+#5 & #6
+\end{tabular}}
+
+\begin{document}
+\InterroHeader{Modélisation des mécanismes}{20}
+
+\question{Quels sont les trois types de volumes ou de surfaces que l'on peut usiner ?}{2}
+\begin{reponse}[25mm]\end{reponse}
+
+\question{Dans chacun des cas suivants, compléter les informations manquantes : symbole cinématique normalisé, nom de la liaison et tableau de mobilité. Utiliser deux couleurs différentes pour les symboles cinématiques normalisés.}{8}
+
+\begin{center}
+\renewcommand{\arraystretch}{1.15}
+\begin{tabular}{|p{.24\linewidth}|p{.49\linewidth}|p{.14\linewidth}|}
+\hline
+\centering\textbf{Désignation de la liaison} & \centering\textbf{Symbole plan}\arraybackslash & \centering\textbf{Tableau de mobilités}\arraybackslash\\
+\hline
+Pivot glissant d'axe $(B,\vec z)$ & \rule{0pt}{24mm} & \\
+\hline
+ & \centering\symbolePivotPlan\arraybackslash & \rule{0pt}{23mm}\\
+\hline
+ & \rule{0pt}{23mm} & \centering\mobilite{0}{1}{0}{1}{1}{0}\arraybackslash\\
+\hline
+Sphérique de centre $T$ & \rule{0pt}{23mm} & \\
+\hline
+ & \centering\symboleAppuiPlan\arraybackslash & \rule{0pt}{23mm}\\
+\hline
+Sphère-plan de normale $(E,\vec z)$ & \rule{0pt}{23mm} & \\
+\hline
+ & \rule{0pt}{23mm} & \centering\mobilite{0}{1}{1}{0}{1}{1}\arraybackslash\\
+\hline
+\end{tabular}
+\hfill
+\raisebox{35mm}{\repereIBDeux}
+\end{center}
+
+\end{document}
