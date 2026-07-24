@@ -1,0 +1,153 @@
+\documentclass[10pt]{article}
+\input{../../framework/interros-framework.tex}
+\setlength{\parindent}{0pt}
+\usetikzlibrary{arrows.meta,calc,positioning,patterns}
+
+\newcommand{\mecanismePompe}{%
+\begin{tikzpicture}[scale=.85,>=Latex,line cap=round,line join=round]
+  \coordinate (O) at (0,0);
+  \coordinate (B) at (7,0);
+  \coordinate (A) at (1.4,1.45);
+  \draw[->,thick] (O)--(8,0) node[right] {$\vec x$};
+  \draw[->,thick] (O)--(0,2.6) node[above] {$\vec y$};
+  \draw[very thick,blue!70!black] (O)--(A);
+  \draw[very thick,orange!80!black] (A)--(B);
+  \draw[very thick,blue!70!black] ($(A)!0.34!(B)+(-.15,.35)$)--($(A)!0.62!(B)+(-.15,.35)$)--($(A)!0.62!(B)+(.15,-.35)$)--($(A)!0.34!(B)+(.15,-.35)$)--cycle;
+  \filldraw[white,draw=red!80!black,very thick] (O) circle (3mm);
+  \filldraw[white,draw=blue!70!black,very thick] (A) circle (3mm);
+  \filldraw[white,draw=orange!80!black,very thick] (B) circle (3mm);
+  \node[below left] at (O) {$O$};
+  \node[above left] at (A) {$A$};
+  \node[above right] at (B) {$B$};
+  \node[red!80!black,left] at (.55,.75) {$1$};
+  \node[blue!70!black,above] at (3.3,1.2) {$2$};
+  \node[orange!80!black,above] at (5.4,.58) {$3$};
+  \draw[densely dashed] (A)--($(A)+(2.0,.55)$);
+  \draw[->] (1.0,0) arc[start angle=0,end angle=46,radius=1.0] node[midway,right] {$\alpha$};
+  \draw[->] (6.15,0) arc[start angle=180,end angle=194,radius=.85] node[midway,below] {$\beta$};
+  \draw[thick] (-.35,-.08)--(.35,-.08);
+  \draw[thick] (6.65,-.08)--(7.35,-.08);
+  \foreach \x in {-.25,-.05,.15,.35,6.75,6.95,7.15,7.35}{\draw[thin] (\x,-.08)--++(-.18,-.25);} 
+\end{tikzpicture}}
+
+\newcommand{\grapheLiaisons}{%
+\begin{tikzpicture}[node distance=2.2cm and 2.6cm,>=Latex]
+  \tikzset{solide/.style={circle,draw=blue!70!black,very thick,minimum size=10mm,fill=white}}
+  \node[solide] (s0) {$0$};
+  \node[solide,right=of s0] (s1) {$1$};
+  \node[solide,below=of s0] (s3) {$3$};
+  \node[solide,right=of s3] (s2) {$2$};
+  \draw[very thick,blue!60] (s0)--node[above,black,font=\small]{Pivot d'axe $(O,\vec z)$}(s1);
+  \draw[very thick,blue!60] (s0)--node[left,black,font=\small]{Pivot d'axe $(B,\vec z)$}(s3);
+  \draw[very thick,blue!60] (s1)--node[right,black,font=\small]{\dotfill}(s2);
+  \draw[very thick,blue!60] (s3)--node[below,black,font=\small]{\dotfill}(s2);
+\end{tikzpicture}}
+
+\newcommand{\liaisonA}{%
+\begin{tikzpicture}[scale=.75]
+ \draw[->] (-.3,0)--(4.2,0) node[right] {$\vec y$};
+ \draw[->] (2,-.6)--(2,1.7) node[above] {$\vec z$};
+ \draw[very thick,blue!70!black] (.2,0)--(3.8,0);
+ \draw[very thick,red!80!black] (.7,0) circle (3mm);
+ \draw[very thick,red!80!black] (3.2,0) circle (3mm);
+ \node[above] at (.7,.25) {$A$}; \node[above] at (3.2,.25) {$B$};
+ \draw[thick] (.35,-.3)--(1.05,-.3); \draw[thick] (2.85,-.3)--(3.55,-.3);
+\end{tikzpicture}}
+
+\newcommand{\liaisonB}{%
+\begin{tikzpicture}[scale=.72]
+ \draw[->] (0,0)--(4.2,0) node[right] {$\vec x$};
+ \draw[->] (0,0)--(0,2) node[above] {$\vec z$};
+ \draw[very thick,red!80!black,rounded corners=8pt] (.4,.2)--(.4,-.8)--(3.7,-.8)--(3.7,.8);
+ \draw[very thick,blue!70!black] (.9,.35) circle (3mm);
+ \draw[very thick,blue!70!black] (3.2,.35) circle (3mm);
+ \node[above] at (.9,.65) {$A$}; \node[above] at (3.2,.65) {$B$};
+\end{tikzpicture}}
+
+\newcommand{\liaisonC}{%
+\begin{tikzpicture}[scale=.7]
+ \draw[->] (0,0)--(3.8,0) node[right] {$\vec x$};
+ \draw[->] (0,0)--(0,2.4) node[above] {$\vec z$};
+ \draw[->] (0,0)--(-.8,-.8) node[left] {$\vec y$};
+ \draw[very thick,blue!70!black] (.7,.3)--(2.8,1.5)--(3.5,1.05);
+ \draw[very thick,green!60!black] (1.15,.55) circle (3mm);
+ \draw[very thick,green!60!black] (2.55,1.35) circle (3mm);
+ \node[below] at (1.15,.25) {$A$}; \node[above] at (2.55,1.65) {$B$};
+ \draw[densely dashed] (1.15,.55)--(2.55,1.35) node[midway,below] {$d$};
+\end{tikzpicture}}
+
+\begin{document}
+\InterroHeader{Loi entrée-sortie}{10}
+
+\begin{minipage}[t]{.43\linewidth}
+Le dessin ci-contre représente le modèle cinématique simplifié d'une pompe.
+
+On pose :
+\[
+\overrightarrow{OA}=R\,\vec x_1,\qquad
+\overrightarrow{AB}=x(t)\,\vec x_2,\qquad
+\overrightarrow{OB}=L\,\vec x.
+\]
+
+L'angle $\alpha=(\vec x,\vec x_1)$ décrit la rotation de la manivelle 1 et l'angle $\beta=(\vec x,\vec x_2)$ l'orientation de l'ensemble piston--cylindre.
+\end{minipage}\hfill
+\begin{minipage}[t]{.53\linewidth}\centering
+\mecanismePompe
+\end{minipage}
+
+\medskip
+\textbf{Objectif :} déterminer la loi entrée-sortie en position entre la translation du piston et la rotation de la manivelle 1.
+
+\question{Compléter le graphe de liaisons ci-dessous.}{2}
+\begin{center}\grapheLiaisons\end{center}
+
+\question{Donner les paramètres des mouvements d'entrée et de sortie.}{1}
+\begin{reponse}[20mm]\end{reponse}
+
+\question{Écrire, sous forme vectorielle, la fermeture géométrique. Ne pas résoudre.}{1}
+\begin{reponse}[25mm]\end{reponse}
+
+\question{Proposer une autre méthode permettant d'obtenir le résultat plus rapidement.}{1}
+\begin{reponse}[25mm]\end{reponse}
+
+\newpage
+\InterroHeader{Loi entrée-sortie}{10}
+
+\question{Donner la liaison équivalente des associations de liaisons en parallèle suivantes.}{5}
+
+\renewcommand{\arraystretch}{1.2}
+\begin{center}
+\begin{tabular}{|>{\centering\arraybackslash}m{.30\linewidth}|>{\centering\arraybackslash}m{.30\linewidth}|>{\centering\arraybackslash}m{.30\linewidth}|}
+\hline
+\liaisonA & \liaisonB & \liaisonC \\
+\hline
+\rule{0pt}{31mm} & & \\
+\hline
+\begin{tikzpicture}[scale=.72]
+ \draw[->] (-.3,0)--(4.1,0) node[right] {$\vec y$};
+ \draw[->] (1.2,-.5)--(1.2,1.7) node[above] {$\vec z$};
+ \draw[very thick,blue!70!black] (.2,0)--(2.9,0);
+ \draw[very thick,red!80!black] (1.2,0) circle (3mm);
+ \draw[very thick] (2.9,-.7)--(2.9,.7);
+ \foreach \y in {-.6,-.3,0,.3,.6}{\draw (2.9,\y)--++(.3,.2);} 
+ \node[above] at (1.2,.3) {$O$}; \node[above] at (2.9,.3) {$A$};
+\end{tikzpicture}
+&
+\begin{tikzpicture}[scale=.72]
+ \draw[->] (0,0)--(4.1,0) node[right] {$X$};
+ \draw[->] (0,0)--(0,1.7) node[above] {$Y$};
+ \draw[very thick] (.2,.35)--(3.5,.35);
+ \draw[very thick] (.2,-.35)--(3.5,-.35);
+ \draw[very thick] (.2,-.35)--(.2,.35); \draw[very thick] (3.5,-.35)--(3.5,.35);
+ \draw[very thick] (.2,.35) circle (3mm); \draw[very thick] (3.5,.35) circle (3mm);
+ \node[above] at (.2,.7) {$O$}; \node[above] at (3.5,.7) {$P$};
+ \node at (1.8,.65) {$S_2$}; \node at (1.8,-.7) {$S_1$};
+\end{tikzpicture}
+& \\
+\hline
+\rule{0pt}{31mm} & & \\
+\hline
+\end{tabular}
+\end{center}
+
+\end{document}
