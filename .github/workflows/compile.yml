@@ -71,6 +71,9 @@ jobs:
           - name: I15 Modélisation des systèmes asservis
             directory: interros/I15_ModelisationSA
             file: I15_ModelisationSA.tex
+          - name: I16 Modélisation des systèmes asservis
+            directory: interros/I16_Modelisation
+            file: I16_Modelisation.tex
 
     steps:
       - name: Récupérer le dépôt
