@@ -1,0 +1,129 @@
+\documentclass[10pt]{article}
+\input{../../framework/interros-framework.tex}
+\setlength{\parindent}{0pt}
+
+\newcommand{\schemaReservoirSeize}{%
+\begin{tikzpicture}[scale=.72,>=Latex,thick]
+  \tikzset{equip/.style={draw,rounded corners,minimum width=17mm,minimum height=12mm,align=center}}
+  \node[equip] (var) at (-4.5,1.1) {variateur de\\fréquence};
+  \node[equip] (mot) at (-2.2,1.1) {moteur\\asynchrone};
+  \node[draw,circle,minimum size=9mm] (pompe) at (0,1.1) {P};
+  \draw[->] (-6.2,1.1)--(var) node[midway,above,align=center]{\scriptsize réseau de\\[-1mm]\scriptsize distribution};
+  \draw[->] (var)--(mot);
+  \draw[->] (mot)--(pompe);
+  \draw[->] (pompe)--(1.2,1.1)--(1.2,3.3)--(2.0,3.3) node[midway,above] {$q_e$};
+  \draw (2.0,.2)--(2.0,3.8)--(4.8,3.8)--(4.8,.2);
+  \draw[fill=blue!10] (2.0,.2) rectangle (4.8,2.9);
+  \draw[<->] (4.15,.25)--(4.15,2.9) node[midway,right] {$h$};
+  \node[align=center] at (3.35,1.7) {réservoir\\section $S$};
+  \draw[->] (4.8,.7)--(6.25,.7) node[midway,above] {$q_s$};
+  \node[draw,rounded corners,minimum width=17mm,minimum height=8mm,align=center] (cap) at (3.4,-.55) {capteur de\\pression};
+  \draw[->] (3.4,.2)--(cap);
+  \node[equip] (cmd) at (6.4,-.55) {salle de\\commande};
+  \draw[->] (cap)--(cmd) node[midway,above] {\scriptsize $v_h$};
+  \draw[->] (cmd.south) |- (-4.5,-1.65) -- (var.south);
+  \node[below] at (1.2,3.3) {\scriptsize arrivée d'eau};
+\end{tikzpicture}}
+
+\newcommand{\schemaBlocSeize}{%
+\begin{tikzpicture}[>=Latex,node distance=10mm and 8mm,thick]
+  \tikzset{bloc/.style={draw,minimum width=13mm,minimum height=9mm,align=center},sommateur/.style={draw,circle,minimum size=8mm,inner sep=0pt}}
+  \node (hc) {$H_c(p)$};
+  \node[bloc,right=of hc] (alpha1) {$\alpha$};
+  \node[sommateur,right=of alpha1] (sum) {$\scriptstyle +\atop\scriptstyle -$};
+  \node[bloc,right=of sum] (c) {$C(p)$};
+  \node[bloc,right=of c] (a) {$A$};
+  \node[bloc,right=of a] (t) {$T(p)$};
+  \node[right=of t] (h) {$H(p)$};
+  \node[bloc,below=13mm of a] (alpha2) {$\alpha$};
+  \draw[->] (hc)--(alpha1);
+  \draw[->] (alpha1)--node[above] {$V_c(p)$}(sum);
+  \draw[->] (sum)--node[above] {$\varepsilon(p)$}(c);
+  \draw[->] (c)--node[above] {$V(p)$}(a);
+  \draw[->] (a)--node[above] {$Q_e(p)$}(t);
+  \draw[->] (t)--(h);
+  \draw[->] (h) |- (alpha2.east);
+  \draw[->] (alpha2.west) -| node[pos=.2,left] {$V_h(p)$} (sum.south);
+\end{tikzpicture}}
+
+\newcommand{\courbeCapteurSeize}{%
+\begin{tikzpicture}[x=4cm,y=.46cm,>=Latex]
+  \draw[step=.2cm,gray!35,very thin] (0,-5.5) grid (2.2,5.5);
+  \draw[->] (0,0)--(2.25,0) node[right] {$h\ (\mathrm m)$};
+  \draw[->] (0,-5.7)--(0,5.8) node[above] {$v_h\ (\mathrm V)$};
+  \foreach \x in {0,.2,.4,.6,.8,1,1.2,1.4,1.6,1.8,2,2.2}{\draw (\x,.1)--(\x,-.1) node[below=1pt] {\scriptsize\x};}
+  \foreach \y in {-5,-4,-3,-2,-1,1,2,3,4,5}{\draw (.025,\y)--(-.025,\y) node[left] {\scriptsize\y};}
+  \draw[red!70!black,very thick] plot[smooth] coordinates {(0,-5)(.2,-4)(.4,-3)(.6,-2)(.8,-1)(1,0)(1.2,1)(1.4,2)(1.6,3)(1.8,4)(2,5)};
+  \node[above] at (1.1,5.85) {\small Tension $v_h$ en fonction de la hauteur $h$};
+\end{tikzpicture}}
+
+\newcommand{\reponseTemporelleSeize}{%
+\begin{tikzpicture}[x=.00165cm,y=3.0cm,>=Latex]
+  \draw[step=250 and .25,gray!35,very thin] (0,0) grid (4250,1.75);
+  \draw[->] (0,0)--(4400,0) node[right] {$t\ (\mathrm s)$};
+  \draw[->] (0,0)--(0,1.82) node[above] {$h\ (\mathrm m)$};
+  \foreach \x in {0,500,1000,1500,2000,2500,3000,3500,4000}{\draw (\x,.025)--(\x,-.025) node[below] {\scriptsize\x};}
+  \foreach \y in {.5,1,1.5,1.75}{\draw (35,\y)--(-35,\y) node[left] {\scriptsize\y};}
+  \draw[very thick] (0,.5)--(400,.5);
+  \draw[very thick,domain=400:4250,samples=120,smooth,variable=\x] plot ({\x},{1.5-exp(-(\x-400)/500)});
+  \draw[red!70!black,very thick] (0,.5)--(400,.5)--(400,1.75)--(4250,1.75);
+  \node[above] at (2400,1.78) {\scriptsize Évolution de $h$ en fonction du temps};
+\end{tikzpicture}}
+
+\begin{document}
+\InterroHeader{Modélisation des systèmes asservis}{20}
+
+Pour pouvoir faire face en cas d'incendie, de nombreuses communes disposent d'un réservoir d'eau. Le réservoir étudié est alimenté en eau par une pompe entraînée par une machine asynchrone alimentée par un variateur de fréquence (ensemble redresseur + onduleur). La hauteur d'eau est mesurée par un capteur de pression placé au fond du réservoir.
+
+\begin{minipage}[t]{.34\linewidth}
+Le réservoir est un cylindre de section constante $S=3{,}5\,\mathrm{m^2}$. On considère que le débit de sortie $q_s$ (en $\mathrm{m^3\,s^{-1}}$) est proportionnel à la hauteur d'eau $h$ (en m).
+
+\medskip
+\textbf{Cahier des charges :} le réservoir doit atteindre 95\,\% de la hauteur voulue en 15 min, avec une précision en régime permanent de 10\,\%.
+\end{minipage}\hfill
+\begin{minipage}[t]{.63\linewidth}
+\centering
+\resizebox{\linewidth}{!}{\schemaReservoirSeize}
+\end{minipage}
+
+\medskip
+Le système peut se mettre sous la forme du schéma-blocs suivant :
+\begin{center}\resizebox{.82\linewidth}{!}{\schemaBlocSeize}\end{center}
+
+\question{Donner les critères permettant d'évaluer un système asservi.}{2}
+\begin{reponse}[24mm]\end{reponse}
+
+Le capteur de pression est modélisé par la courbe suivante :
+\begin{center}\resizebox{.92\linewidth}{!}{\courbeCapteurSeize}\end{center}
+
+\newpage
+\InterroHeader{Modélisation des systèmes asservis}{20}
+
+\question{En déduire la valeur du gain $\alpha$ modélisant le capteur de pression.}{2}
+\begin{reponse}[27mm]\end{reponse}
+
+\question{Donner la transformée de Laplace de l'équation différentielle modélisant le réservoir, puis donner la fonction de transfert $T(p)$ sous forme canonique :
+\[
+S\,\frac{\mathrm dh(t)}{\mathrm dt}+\beta\,h(t)=q_e(t).
+\]}{1}
+\begin{reponse}[46mm]\end{reponse}
+
+\question{Donner la transformée de Laplace d'un échelon $H_c(t)$ d'amplitude $1{,}25$.}{2}
+\begin{reponse}[29mm]\end{reponse}
+
+\question{Appliquer le théorème de la valeur finale afin d'obtenir la valeur finale de $H(p)$ à un échelon d'amplitude $1{,}25$, avec
+\[
+\frac{H(p)}{H_c(p)}=\frac{0{,}8}{1+500p}.
+\]}{1}
+\begin{reponse}[38mm]\end{reponse}
+
+\begin{minipage}[t]{.35\linewidth}
+\question{Donner le temps de réponse à 5\,\% $t_{r5\%}$ et l'écart statique, puis conclure sur le respect du cahier des charges.}{1,5}
+\begin{reponse}[47mm]\end{reponse}
+\end{minipage}\hfill
+\begin{minipage}[t]{.62\linewidth}
+\centering
+\resizebox{\linewidth}{!}{\reponseTemporelleSeize}
+\end{minipage}
+
+\end{document}
