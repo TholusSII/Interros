@@ -1,0 +1,127 @@
+\documentclass[10pt]{article}
+\input{../../framework/interros-framework.tex}
+\setlength{\parindent}{0pt}
+
+\newcommand{\trainSchema}{%
+\begin{tikzpicture}[scale=.75,>=Latex,line cap=round,line join=round]
+  \draw[very thick] (-3,0)--(-1.7,0);
+  \draw[very thick] (1.7,0)--(3,0);
+  \draw[very thick] (-2.7,-1.5)--(-2.7,1.5)--(-2.1,1.5);
+  \draw[very thick] (-2.7,-1.5)--(-2.1,-1.5);
+  \draw[very thick] (2.1,-1.6)--(2.7,-1.6)--(2.7,1.6)--(2.1,1.6);
+  \draw[very thick] (-1.2,.55)--(-1.2,-.55);
+  \draw[very thick] (1.2,.55)--(1.2,-.55);
+  \draw[very thick] (-1.2,.35)--(1.2,.35);
+  \draw[very thick] (-1.2,-.35)--(1.2,-.35);
+  \draw[very thick] (-.35,.35)--(-.35,-.35);
+  \draw[very thick] (.35,.35)--(.35,-.35);
+  \draw[very thick] (-.35,.7)--(-.35,.35);
+  \draw[very thick] (.35,.7)--(.35,.35);
+  \draw[very thick] (-.35,.7)--(.35,.7);
+  \draw[very thick] (-.35,-.7)--(-.35,-.35);
+  \draw[very thick] (.35,-.7)--(.35,-.35);
+  \draw[very thick] (-.35,-.7)--(.35,-.7);
+  \draw[very thick] (1.2,0)--(2.15,0);
+  \draw[very thick] (2.15,-.28)--(2.15,.28);
+  \draw[very thick] (2.15,-.28)--(2.55,-.28);
+  \draw[very thick] (2.15,.28)--(2.55,.28);
+  \node at (-3.25,0) {0};
+  \node[blue] at (-2.45,-.1) {1};
+  \node[red] at (-.68,.02) {21};
+  \node[red] at (.68,.02) {22};
+  \node[purple] at (2.45,1.1) {4};
+  \node[green!50!black] at (1.65,-.15) {3};
+  \draw[green!50!black,very thick] (-1.65,0)--(-1.15,0);
+  \draw[green!50!black,very thick] (1.15,0)--(1.75,0);
+  \node[above] at (-2.0,1.55) {config. 3C};
+\end{tikzpicture}}
+
+\newcommand{\mecanismeTransport}{%
+\begin{tikzpicture}[scale=.72,>=Latex]
+  \coordinate (O) at (-4,0);
+  \coordinate (A) at (0,0);
+  \coordinate (B) at (0,-.85);
+  \coordinate (G) at (1.0,-3.4);
+  \coordinate (C) at (1.75,-5.4);
+  \draw[thick] (-4.2,0)--(4.2,0);
+  \foreach \x in {-4.2,4.2}{\draw[thick] (\x,-.35)--(\x,.35);}
+  \draw[thick,fill=white] (-.55,-.18) rectangle (.55,.18);
+  \draw[thick] (A)--(B);
+  \draw[very thick] (B)--(C);
+  \draw[thick,fill=white,rotate around={-20:(C)}] ($(C)+(-.27,-.27)$) rectangle ($(C)+(.27,.27)$);
+  \fill (B) circle (2pt);
+  \draw[->] (O)--(-2.8,0) node[right] {$\vec x_1$};
+  \draw[->] (O)--(-4,1.6) node[above] {$\vec y_1$};
+  \node[below left] at (O) {$O_1$};
+  \node[above right] at (A) {$A$};
+  \node[left] at (B) {$B$};
+  \node[left] at (G) {$G_3$};
+  \node[right] at (C) {$C$};
+  \node[above] at (-.15,.36) {(2)};
+  \node[below left] at (-1.5,-.15) {(1)};
+  \node[left] at (.35,-2.0) {(3)};
+  \draw[->] (B)--(1.7,-.85) node[right] {$\vec x_2$};
+  \draw[->] (B)--(.2,.3) node[above] {$\vec y_2$};
+  \draw[->] (B)--(1.6,-1.45) node[right] {$\vec x_3$};
+  \draw[->] (B)--(-.6,.7) node[above] {$\vec y_3$};
+  \draw[->] (1.2,-.85) arc[start angle=0,end angle=-20,radius=1.2];
+  \node at (1.15,-1.15) {$\theta$};
+  \draw[->] (-.2,.35) arc[start angle=100,end angle=78,radius=.8];
+  \node at (-.05,.65) {$\theta$};
+\end{tikzpicture}}
+
+\begin{document}
+\InterroHeader{Cinématique du solide}{20}
+
+\begin{minipage}[t]{.27\linewidth}
+\centering
+\trainSchema
+\end{minipage}\hfill
+\begin{minipage}[t]{.69\linewidth}
+\question{Donner le rapport de réduction noté $k=\dfrac{\omega_{3/0}}{\omega_{4/0}}$.}{2}
+\begin{reponse}[36mm]\end{reponse}
+\end{minipage}
+
+\question{Que vaut le vecteur $\vec\Omega_{1/0}$ si le mouvement de $1/0$ est une translation circulaire ?}{1}
+\begin{reponse}[18mm]\end{reponse}
+
+\question{Quels sont les mouvements possibles pour un solide ?}{1}
+\begin{reponse}[18mm]\end{reponse}
+
+Un mécanisme de transport de charge est constitué d'un rail fixe 1, d'un chariot mobile 2 en liaison glissière avec ce dernier, et d'un bras rigide 3 articulé en $B$ sur le chariot. La charge est située en $C$. Le mécanisme évolue dans le plan vertical $(O_1,\vec x_1,\vec y_1)$. Les liaisons sont parfaites. Le but est d'analyser le mouvement du bras et donc de la charge lors des séquences d'accélération et de mouvement uniforme du chariot.
+
+\begin{center}
+\begin{minipage}{.52\linewidth}
+\centering
+\mecanismeTransport
+\end{minipage}\hfill
+\begin{minipage}{.43\linewidth}
+$AB=h$, \quad $O_1A=x(t)$, \quad $BG_3=L_3$.
+
+$G_3$ est le centre d'inertie du bras et de la charge placée en $C$.
+
+\medskip
+\question{Donner la vitesse $\vec V_{A,2/1}$.}{1}
+\begin{reponse}[31mm]\end{reponse}
+\end{minipage}
+\end{center}
+
+\question{Donner la relation de composition des vitesses qui permet de calculer $\vec V_{G_3,3/1}$. Nommer les deux vitesses qui composent cette relation.}{1}
+\begin{reponse}[29mm]\end{reponse}
+
+\newpage
+\InterroHeader{Cinématique du solide}{20}
+
+\question{Déterminer l'expression de $\vec V_{G_3,3/1}$.}{2}
+\begin{reponse}[48mm]\end{reponse}
+
+\question{Déterminer l'expression de $\left.\dfrac{d\vec x_3}{dt}\right|_1$.}{1}
+\begin{reponse}[27mm]\end{reponse}
+
+\question{Déterminer l'expression de $\vec A_{G_3,3/1}$.}{2}
+\begin{reponse}[98mm]\end{reponse}
+
+\question{Déterminer l'expression du torseur cinématique $\{\mathcal V_{3/1}\}_{G_3}$.}{0}
+\begin{reponse}[45mm]\end{reponse}
+
+\end{document}
