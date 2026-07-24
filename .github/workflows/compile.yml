@@ -32,9 +32,9 @@ jobs:
           - name: I02 Liaisons
             directory: interros/I02_Liaisons
             file: I02_Liaisons.tex
-          - name: I03 Modélisation cinématique
-            directory: interros/I03_ModelisationCinematique
-            file: I03_ModelisationCinematique.tex
+          - name: I03 Modélisation des mécanismes
+            directory: interros/I03_Liaisons
+            file: I03_Liaisons.tex
           - name: I04 Liaisons équivalentes
             directory: interros/I04_LiaisonsEquivalentes
             file: I04_LiaisonsEquivalentes.tex
