@@ -80,6 +80,9 @@ jobs:
           - name: IB02 Liaisons
             directory: interros/IB02_Liaisons
             file: IB02_Liaisons.tex
+          - name: IB03 Outils mathématiques
+            directory: interros/IB03_OutilsMathematiques
+            file: IB03_OutilsMathematiques.tex
 
     steps:
       - name: Récupérer le dépôt
