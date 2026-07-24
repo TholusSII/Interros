@@ -1,0 +1,104 @@
+\documentclass[10pt]{article}
+\input{../../framework/interros-framework.tex}
+\setlength{\parindent}{0pt}
+\usetikzlibrary{arrows.meta,calc,positioning,patterns}
+
+\newcommand{\schemaLevage}{%
+\begin{tikzpicture}[scale=.78,>=Latex,line cap=round,line join=round]
+  \coordinate (O) at (0,0); \coordinate (B) at (4.3,0); \coordinate (A) at (2.9,3.1); \coordinate (C) at (5.45,-2.1);
+  \draw[->] (-.4,0)--(6.2,0) node[right] {$\vec x_1$};
+  \draw[->] (0,-.4)--(0,4) node[above] {$\vec y_1$};
+  \draw[very thick] (O)--(A);
+  \draw[line width=5pt,gray!55] ($(O)!.32!(A)$)--($(O)!.74!(A)$);
+  \draw[very thick] (A)--(B)--(C);
+  \filldraw[fill=white] (O) circle (2.4pt) node[below left] {$O_1$};
+  \filldraw[fill=white] (A) circle (2.4pt) node[above] {$A$};
+  \filldraw[fill=white] (B) circle (2.4pt) node[below left] {$B$};
+  \node[right] at ($(O)!.42!(A)$) {(2)--(3)};
+  \node[right] at ($(A)!.52!(B)$) {(4)};
+  \draw[->] (O)+(1.05,0) arc[start angle=0,end angle=47,radius=1.05] node[midway,right] {$\alpha$};
+  \draw[->] (B)+(1.0,0) arc[start angle=0,end angle=-63,radius=1.0] node[midway,right] {$\beta$};
+  \draw[->] (A)+(110:.75) arc[start angle=110,end angle=222,radius=.75] node[midway,left] {$\delta$};
+  \draw[thick] (-.28,-.18)--(.28,-.18); \draw[thick] (-.22,-.28)--(.22,-.28);
+  \draw[thick] (B)+(-.35,-.18)--++(.7,0); \draw[thick] (B)+(-.28,-.28)--++(.56,0);
+\end{tikzpicture}}
+
+\newcommand{\grapheLiaisons}{%
+\begin{tikzpicture}[node distance=26mm and 38mm]
+\tikzset{solide/.style={circle,draw=SIblue,very thick,minimum size=10mm,font=\bfseries,text=red}}
+\node[solide] (s1) {1}; \node[solide,right=of s1] (s2) {2};
+\node[solide,below=of s1] (s4) {4}; \node[solide,right=of s4] (s3) {3};
+\draw[SIblue,very thick] (s1)--node[above,font=\small]{Pivot d'axe $(O_1,\vec z_1)$}(s2);
+\draw[SIblue,very thick] (s4)--node[below,font=\small]{Pivot d'axe $(A,\vec z_1)$}(s3);
+\draw[SIblue,very thick] (s1)--node[left]{\dotfill}(s4);
+\draw[SIblue,very thick] (s2)--node[right]{\dotfill}(s3);
+\end{tikzpicture}}
+
+\newcommand{\liaisonParallele}[1]{%
+\begin{tikzpicture}[x=1cm,y=1cm,scale=.72,line width=.8pt]
+  \draw[->] (-.2,0)--(4.6,0) node[right] {$\vec y$};
+  \draw[->] (.5,-.5)--(.5,2.2) node[above] {$\vec z$};
+  \draw[red,very thick] (.6,1.15)--(3.65,1.15);
+  \draw[blue,very thick] (.6,.75) rectangle (1.1,1.15);
+  \draw[blue,very thick] (3.15,.75) rectangle (3.65,1.15);
+  \draw[red,very thick,fill=white] (.85,1.15) circle (.25);
+  \draw[red,very thick,fill=white] (3.4,1.15) circle (.25);
+  \node[above] at (.85,1.43) {$A$}; \node[above] at (3.4,1.43) {$B$};
+  \node[below left,blue] at (.6,.72) {$0$}; \node[above,red] at (2.1,1.15) {$1$};
+  \node at (2.1,-.35) {#1};
+\end{tikzpicture}}
+
+\begin{document}
+\InterroHeader{Loi entrée--sortie}{10}
+
+\begin{minipage}[t]{.58\linewidth}
+Le schéma ci-contre représente un dispositif de levage constitué :
+\begin{itemize}[nosep,leftmargin=7mm]
+\item du vérin électrique de corps (2) et de tige (3) ;
+\item du levier (4) ;
+\item du bâti (1).
+\end{itemize}
+La charge se situe au point $C$. Le but est de déterminer la relation entre l'angle de basculement du levier (4) et l'amplitude de la translation de la tige de vérin (3).
+
+\medskip
+$O_1A=\lambda$ ; $AB=b=400\,\mathrm{mm}$ ; $O_1B=a=550\,\mathrm{mm}$ ; $CB=c=320\,\mathrm{mm}$
+
+$(\vec x_1,\vec x_2)=\alpha$ ; $(\vec x_2,\vec x_3)=\delta$ ; $(\vec x_1,\vec x_4)=\beta$.
+\end{minipage}\hfill
+\begin{minipage}[t]{.39\linewidth}\centering
+\schemaLevage
+\end{minipage}
+
+\medskip
+\textbf{Objectif :} déterminer la loi entrée--sortie en position entre la translation du vérin et la rotation du levier 4.
+
+\question{Compléter le graphe de liaisons ci-dessous.}{2}
+\begin{center}\grapheLiaisons\end{center}
+
+\question{Donner les paramètres des mouvements d'entrée et de sortie.}{1}
+\begin{reponse}[19mm]\end{reponse}
+
+\question{Écrire, sous forme vectorielle, la fermeture géométrique. Ne pas résoudre.}{1}
+\begin{reponse}[23mm]\end{reponse}
+
+\question{Trouver une autre méthode permettant d'obtenir le résultat plus rapidement.}{1}
+\begin{reponse}[25mm]\end{reponse}
+
+\newpage
+\InterroHeader{Loi entrée--sortie}{10}
+\question{Donner la liaison équivalente des liaisons en parallèle suivantes.}{5}
+
+\renewcommand{\arraystretch}{1.2}
+\begin{center}
+\begin{tabular}{|>{\centering\arraybackslash}m{.30\linewidth}|>{\centering\arraybackslash}m{.30\linewidth}|>{\centering\arraybackslash}m{.30\linewidth}|}
+\hline
+\liaisonParallele{Deux pivots coaxiaux} & \liaisonParallele{Deux rotules} & \liaisonParallele{Rotule et linéaire annulaire}\\[2mm]
+\begin{reponse}[31mm]\end{reponse} & \begin{reponse}[31mm]\end{reponse} & \begin{reponse}[31mm]\end{reponse}\\
+\hline
+\liaisonParallele{Deux appuis ponctuels distants de $d$} & \liaisonParallele{Deux pivots parallèles} & \\
+\begin{reponse}[31mm]\end{reponse} & \begin{reponse}[31mm]\end{reponse} & \\
+\hline
+\end{tabular}
+\end{center}
+
+\end{document}
